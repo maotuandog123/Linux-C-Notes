@@ -10,7 +10,7 @@ int queue_en(QUEUE *ptr, const void *data)
     llist_insert(ptr, data, LLIST_BACKWARD);
 }
 
-static always_match(const void *p1, const void *p2)
+static int always_match(const void *p1, const void *p2)
 {
     return 0;
 }
