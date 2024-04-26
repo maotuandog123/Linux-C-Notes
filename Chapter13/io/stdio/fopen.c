@@ -25,5 +25,7 @@ int main()
 
     puts("OK!");
 
+    fclose(fp);
+
     exit(0);
 }
