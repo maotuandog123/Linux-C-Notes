@@ -8,7 +8,7 @@
 
 优先使用标准IO，兼容性更好，还有合并系统调用的优势。
 
-
+## 标准IO
 
 ```c
 /* stdio */
@@ -150,9 +150,116 @@ fflush();
  *         _IOLBF
  *         _IOFBF
 */
-int setvbuf(FIEL *stream, char *buf, int mode, size_t size);
+int setvbuf(FILE *stream, char *buf, int mode, size_t size);
+
+/**
+ * 为了读取一行
+ * 
+ * 使用办法：
+ *   #define _GNU_SOURCE  这个不想写到代码里面的话可以写到makefile
+ *   eg. CFLAGS+=-D_FILE_OFFSET_BITS=64 -D_GNU_SOURCE
+ *   #include <stdio.h>
+ * 
+ * !!! 里面有 malloc 动作，未释放
+ * !!! 是方言，可以自己封装一个mygetline和mygetline_free
+ * 
+*/
+ssize_t getline(char **lineptr, size_t *n, FILE *stream);
+
+/**
+ * 临时文件
+ *       1. 如何不冲突的创建
+ *       2. 及时销毁
+ * 
+ * tmpnam: 创建临时文件名字
+ *         有并发危险，因为产生名字和创建文件是两步
+ * 
+ * tmpfile: 创建临时文件
+ *          是匿名文件，ls -a 都看不到
+ *          避免冲突
+*/
+char *tmpnam(char *s);
+FILE *tmpfile(void);
+
+
 
 ```
 
 
-P131
+## 文件IO/系统调用IO
+
+文件描述符（`fd`）是在文件IO中贯穿始终的类型。
+
+### 文件描述符的概念
+是一个整型数，是一个指针数组的下标。
+优先使用当前可用范围内最小的。
+
+### 文件IO操作相关函数：
+- open
+- close
+- read
+- write
+- lsee
+
+```c
+
+/**
+ * r  -> O_RDONLY
+ * r+ -> O_RDWR
+ * w  -> O_WRONLY | O_CREAT | O_TRUNC
+ * w+ -> O_RDWR   | O_TRUNC | O_CREAT
+ * 
+ * 如果有creat就必须用三参数的形式
+ * C语言没有重载，这是变参函数
+ * 
+ * @prarm: pathname 文件路径
+ * @prarm: flags    文件打开方式
+ * @prarm: mode     文件权限
+ * 
+*/
+int open(const char *pathname, int flags);
+int open(const char *pathname, int flags, mode_t mode);
+
+int close(int fd);
+
+/**
+ *  read from a file descriptor
+ * 
+ * @return 读取的字节数，失败返回-1
+*/
+ssize_t read(int fd, void *buf, size_t count);
+
+/**
+ *  write to a file descriptor
+ * 
+ * @return 写入的字节数，失败返回-1
+*/
+ssize_t write(int fd, const void *buf, size_t count);
+
+/**
+ *  移动文件指针
+ * 
+ * @prarm: offset 移动多远
+ * @prarm: whence 移动方向
+ *         SEEK_SET, SEEK_CUR, SEEK_END
+ * 
+ * @return  成功0，失败-1
+*/
+off_t lseek(int fd, offt offset, int whence);
+
+```
+
+
+### 文件IO与标准IO的区别
+
+### IO的效率问题
+
+### 文件共享
+
+### 原子操作
+
+### 程序中的重定向：`dup`, `dup2`
+
+### 同步：`sync`, `fsync`, `fdatasync`, `fcntl`, `ioctl`
+
+### /dev/fd/目录
