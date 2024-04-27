@@ -181,8 +181,6 @@ ssize_t getline(char **lineptr, size_t *n, FILE *stream);
 char *tmpnam(char *s);
 FILE *tmpfile(void);
 
-
-
 ```
 
 
@@ -251,15 +249,79 @@ off_t lseek(int fd, offt offset, int whence);
 
 
 ### 文件IO与标准IO的区别
+区别：响应速度&吞吐量
+文件IO需要频繁进入内核，标准IO通过缓冲区合并系统调用。
+响应速度快就文件IO，吞吐量大就标准IO。
+> [!warning]
+> 二者不可混用
+
+转换方法：`fileno`, `fdopen`
 
 ### IO的效率问题
+习题：将`mycpy.c`程序进行更改，将`BUFSIZE`的值放大，观察进程消耗的时间，注意性能出现拐点的值以及程序何时段错误。
 
 ### 文件共享
+多个任务共同操作一个文件或者协同完成任务
+
+面试题：写程序删除一个文件的第10行
+补充函数：
+```c
+// 截断文件到某长度
+int truncate(const char *path, off_t length);
+int ftruncate(int fd, off_t length);
+```
+
+```c
+// 最简单思路，将11行开始的内容到第10行开始处覆盖写
+while()
+{
+    lseek 11 + read +lseek 10 + write
+}
+
+// 优化思路，两个文件描述符，一个读一个写
+1 -> open r  -> fd1 -> lseek 11
+2 -> open r+ -> fd2 -> lseek 10
+
+while()
+{
+    1->fd1-> read
+    2->fd2-> write
+}
+
+// 两个进程, 设计进程间通信
+process1 -> open -> r
+process2 -> open -> r+
+
+p1->read -> p2->write
+
+```
 
 ### 原子操作
+指不可分割的操作
+作用：解决竞争和冲突
+如`tmpnam`函数，产生文件名和创建文件是两步，会有并发问题。
+
 
 ### 程序中的重定向：`dup`, `dup2`
+```c
+int dup(int oldfd);
+int dup2(int oldfd, int newfd);
+```
 
-### 同步：`sync`, `fsync`, `fdatasync`, `fcntl`, `ioctl`
+### 同步
+同步内核层面的buffer和cache
+```c
+void sync(void);
+int fsync(int fd);
+int fdatasync(int fd); // 只刷新数据，不刷新亚数据
+
+// 文件描述符所有的操作几乎都来源于该函数
+int fcntl(int fd, int cmd, ... /* arg */);
+
+// 设备相关的内容
+int ioctl(int fd, unsigned long request, ... /* arg */);
+
+```
 
 ### /dev/fd/目录
+**虚目录**：显示当前进程的文件描述符信息

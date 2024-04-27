@@ -4,6 +4,11 @@
 #include <unistd.h>
 
 #define BUFSIZE 1024
+/**
+ * 可以用 time 命令找到 BUFSIZE 最佳值
+ *
+ * time ./mycpy /etc/services /tmp/out
+ */
 
 int main(int argc, char **argv)
 {
@@ -47,6 +52,7 @@ int main(int argc, char **argv)
         pos = 0;
         while (len > 0)
         {
+            /* 可能没写完被别的中断打断 */
             ret = write(dfd, buf + pos, len);
             if (ret < 0)
             {
