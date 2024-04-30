@@ -162,6 +162,7 @@ int setvbuf(FILE *stream, char *buf, int mode, size_t size);
  * 
  * !!! 里面有 malloc 动作，未释放
  * !!! 是方言，可以自己封装一个mygetline和mygetline_free
+ * !!! 但是根据chatgpt，好像直接 free(*lineptr) 就行了
  * 
 */
 ssize_t getline(char **lineptr, size_t *n, FILE *stream);
@@ -260,6 +261,77 @@ off_t lseek(int fd, offt offset, int whence);
 ### IO的效率问题
 习题：将`mycpy.c`程序进行更改，将`BUFSIZE`的值放大，观察进程消耗的时间，注意性能出现拐点的值以及程序何时段错误。
 
+解答：
+将`BUFSIZE`作为命令行参数传入，`int bufsize = atoi(argv[3]);`
+通过脚本进行试验：
+```bash
+#!/bin/bash
+
+# 生成一个 5GB 的文件
+dd if=/dev/urandom of=/tmp/bigfile bs=1G count=5
+
+# 输入和输出文件的路径
+src="/tmp/bigfile"
+dst="/tmp/outfile"
+
+# 编译你的程序
+gcc -o mycpy_bufsize mycpy_bufsize.c
+
+# 初始化 BUFSIZE
+bufsize=512
+
+# 循环，每次 BUFSIZE * 2
+while true; do
+  # 用 time 命令运行你的程序，并将结果重定向到一个临时文件
+  { time ./mycpy_bufsize $src $dst $bufsize; } 2> time.txt
+  
+  # 检查程序的退出状态
+  if [ $? -ne 0 ]; then
+    echo "Max BUFSIZE before segfault: $bufsize"
+    break
+  fi
+
+  # 提取 time 的结果
+  real_time=$(grep real time.txt | awk -F' ' '{print $2}')
+  user_time=$(grep user time.txt | awk -F' ' '{print $2}')
+  sys_time=$(grep sys time.txt | awk -F' ' '{print $2}')
+
+  # 输出 BUFSIZE 和 time 的结果
+  echo "BUFSIZE: $bufsize, Real Time: $real_time, User Time: $user_time, Sys Time: $sys_time"
+  
+  # BUFSIZE * 2
+  bufsize=$((bufsize * 2))
+done
+
+# 删除临时文件
+rm time.txt
+rm $src
+rm $dst
+
+```
+
+结果：
+```bash
+wan@SK-20240106UQUX:~/Linux-C-Notes/C13-Linux系统编程/io/sys$ ./time.sh
+BUFSIZE: 512, Real Time: 0m7.672s, User Time: 0m0.650s, Sys Time: 0m7.007s
+BUFSIZE: 1024, Real Time: 0m5.026s, User Time: 0m0.201s, Sys Time: 0m4.651s
+BUFSIZE: 2048, Real Time: 0m3.535s, User Time: 0m0.158s, Sys Time: 0m3.183s
+BUFSIZE: 4096, Real Time: 0m2.418s, User Time: 0m0.059s, Sys Time: 0m2.232s
+BUFSIZE: 8192, Real Time: 0m2.363s, User Time: 0m0.040s, Sys Time: 0m2.150s
+BUFSIZE: 16384, Real Time: 0m2.279s, User Time: 0m0.030s, Sys Time: 0m2.079s
+BUFSIZE: 32768, Real Time: 0m2.238s, User Time: 0m0.020s, Sys Time: 0m2.026s
+BUFSIZE: 65536, Real Time: 0m2.114s, User Time: 0m0.000s, Sys Time: 0m1.972s
+BUFSIZE: 131072, Real Time: 0m2.302s, User Time: 0m0.019s, Sys Time: 0m1.982s
+BUFSIZE: 262144, Real Time: 0m2.244s, User Time: 0m0.000s, Sys Time: 0m2.016s
+BUFSIZE: 524288, Real Time: 0m2.254s, User Time: 0m0.000s, Sys Time: 0m2.039s
+BUFSIZE: 1048576, Real Time: 0m2.249s, User Time: 0m0.010s, Sys Time: 0m2.037s
+BUFSIZE: 2097152, Real Time: 0m2.304s, User Time: 0m0.000s, Sys Time: 0m2.108s
+BUFSIZE: 4194304, Real Time: 0m2.234s, User Time: 0m0.010s, Sys Time: 0m2.082s
+Max BUFSIZE before segfault: 8388608
+```
+在`ulimit -a`中，我的系统的`stack size`是`8192`，所以`BUFSIZE`不能超过`8192`，否则会段错误。与测试结果一致。
+
+
 ### 文件共享
 多个任务共同操作一个文件或者协同完成任务
 
@@ -325,3 +397,262 @@ int ioctl(int fd, unsigned long request, ... /* arg */);
 
 ### /dev/fd/目录
 **虚目录**：显示当前进程的文件描述符信息
+
+
+
+# 文件系统
+
+类`ls`的实现，如`myls -l -a -i -n`
+
+`cmd --长格式  -短格式  非选项的传参`
+
+## 目录和文件
+
+1. 获取文件属性
+```c
+/**
+ *  将文件的属性存储到buf中
+ *  stat : 通过文件路径获取属性，面对符号链接文件时，
+ *         获取的是指向的目标文件的属性
+ *  fstat: 通过文件描述符获取属性
+ *  lstat: 通过文件路径获取属性，面对符号链接文件时，
+*/
+int stat(const char *path, struct stat *buf);
+int fstat(int fd, struct stat *buf);
+int lstat(const char *path, struct stat *buf);
+
+struct stat {
+    dev_t     st_dev;         /* ID of device containing file */
+    ino_t     st_ino;         /* inode number */
+    // 文件唯一标识，身份证号
+
+    mode_t    st_mode;        /* protection */
+    // st_mode: 文件权限+文件类型
+    // 文件权限
+    // 七种文件类型：dcb-lsp
+
+    nlink_t   st_nlink;       /* number of hard links */
+    uid_t     st_uid;         /* user ID of owner */
+    gid_t     st_gid;         /* group ID of owner */
+    dev_t     st_rdev;        /* device ID (if special file) */
+    off_t     st_size;        /* total size, in bytes */
+    // 在linux下，与windows不同，size值仅仅是属性
+    // 不能实际体现占用磁盘大小，详见 big.c
+
+    blksize_t st_blksize;    /* blocksize for file system I/O */
+    blkcnt_t  st_blocks;     /* number of 512B blocks allocated */
+    time_t    st_atime;       /* time of last access */
+    time_t    st_mtime;       /* time of last modification */
+    time_t    st_ctime;       /* time of last status change */
+};
+```
+
+2. 文件访问权限
+`st_mode`是一个16位的二进制数，文件类型，文件权限，特殊权限。
+
+3. `umask`
+作用：防止产生权限过松的文件。
+`0666 &~umask`
+`umask`也是一个终端命令，可以查看和设置。
+`mode_t umask(mode_t mask);`
+
+4. 文件权限的更改/管理
+```c
+/**
+ * 更改文件权限
+*/
+int chmod(const char *path, mode_t mode);
+int fchmod(int fd, mode_t mode);
+```
+
+5. 粘住位
+t位，例如`/tmp`目录。
+
+6. 文件系统：`FAT`, `UFS`
+文件或数据的存储格式。
+- `FAT`：静态存储的单链表
+```c
+struct node_st{
+  int next[N];
+  char data[N][SIZE];
+};
+```
+- `UFS`：
+缺点：不善于处理大量的小文件，因为每个文件都有一个`inode`，占用空间。
+
+> 面试题：
+> 不用比较，比较两个uint32_t的大小
+> 使用位图
+
+7. 硬链接，符号链接
+- 硬链接
+  `ln bigfile bigfile_link`
+  与目录项是同义词
+  相当于目录项又弄了一份，使用`ls -i`可以看到`inode`号相同。
+
+  限制：不能给分区建立，不能给目录建立
+
+- 符号链接
+  `ln -s bigfile_link bigfile_s`
+
+  优点：可以跨分区，可以给目录建立
+  
+```c
+int link(const char *oldpath, const char *newpath);
+
+/**
+ *  只有没有引用的数据才会真正删除
+ *  可以利用这一点创建匿名文件
+*/
+int unlink(const char *pathname);
+
+int remove(const char *pathname);
+
+/**
+ *  改变文件的路径或者名字
+*/
+int rename(const char *oldpath, const char *newpath);
+```
+
+8. `utime`
+```c
+/**
+ *  更改文件最后读/写的时间
+*/
+int utime(const char *filename, const struct utimbuf *times);
+
+struct utimbuf {
+    time_t actime;       /* access time */
+    time_t modtime;      /* modification time */
+};
+
+struct time_t {
+    long tv_sec;         /* seconds */
+    long tv_usec;        /* microseconds */
+};
+```
+
+9. 目录的创建和销毁
+`mkdir, rmdir`
+```c
+int mkdir(const char *pathname, mode_t mode);
+
+/**
+ *  只有目录为空才能删除
+*/
+int rmdir(const char *pathname);
+```
+
+10. 更改当前工作路径
+`cd, pwd`
+```c
+/**
+ *  改变当前工作路径
+ *  可以突破假根目录
+ *  但是不能突破chroot
+*/
+int chdir(const char *path);
+int fchdir(int fd);
+
+/**
+ *  获取当前工作路径
+*/
+long getcwd(char *buf, unsigned long size);
+```
+
+11. 分析目录/读取目录内容
+
+```c
+
+/**
+ *  法一
+ *  解析模式/通配符
+ * 
+ * @prarm: pattern 匹配模式
+ * @prarm: flags   匹配标志
+ * @prarm: errfunc 错误回调函数
+ * @prarm: pglob   匹配结果
+ * 
+ * @return  匹配的文件数量
+*/
+int glob(const char *restrict pattern, int flags,
+                int (*errfunc)(const char *epath, int eerrno),
+                glob_t *restrict pglob);
+/**
+ *  释放glob_t结构体
+*/
+void globfree(glob_t *pglob);               
+
+/**
+ * 与argc, argv类似
+*/
+typedef struct {
+    size_t   gl_pathc;    /* Count of paths matched so far */
+    char   **gl_pathv;    /* List of matched pathnames */
+    size_t   gl_offs;     /* Slots to reserve in gl_pathv */
+} glob_t;
+
+/**
+ *  法二
+*/
+
+/**
+ *  打开一个目录
+ *  返回一个指向DIR结构体的指针
+ *  是堆区，需要 closedir 释放
+*/
+DIR *opendir(const char *name);
+DIR *fdopendir(int fd);
+
+/**
+ *  关闭一个目录
+*/
+int closedir(DIR *dirp);
+
+/**
+ *  读取一个目录
+ * 
+ *  返回指针指向静态区
+*/
+struct dirent *readdir(DIR *dirp);
+int readdir_r(DIR *restrict dirp,
+              struct dirent *restrict entry,
+              struct dirent **restrict result);
+
+struct dirent {
+    ino_t          d_ino;       /* inode number */
+    off_t          d_off;       /* offset to the next dirent */
+    unsigned short d_reclen;    /* length of this record */
+    unsigned char  d_type;      /* type of file; not supported
+                                   by all file system types */
+    char           d_name[256]; /* filename */
+};
+
+
+/**
+ *  重置一个目录
+*/
+void rewinddir(DIR *dirp);
+
+void seekdir(DIR *dirp, long offset);
+
+long telldir(DIR *dirp);
+
+/**
+ *  du 命令
+ *  以字节为单位，统计目录下所有文件的大小
+ *
+*/
+
+
+```
+
+作业：用另一套函数实现`mydu`
+
+
+## 系统数据文件和信息
+
+
+
+## 进程环境
+

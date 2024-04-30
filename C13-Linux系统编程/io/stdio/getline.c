@@ -35,6 +35,9 @@ int main(int argc, char **argv)
         // 修改后发现，linesize初始值就是120，是后面不够再增加
     }
 
+    // !!!
+    free(linebuf);
+
     fclose(fp);
     exit(0);
 }
