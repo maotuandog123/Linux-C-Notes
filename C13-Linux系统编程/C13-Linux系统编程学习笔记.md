@@ -33,8 +33,8 @@ FILE *fopen(const char *path, const char *mode);
 */
 int fclose(FILE *fp);
 
-int fputc(FILE *stream);
-int fgetc(int c, FILE *stream);
+int fputc(int c, FILE *stream);
+int fgetc(FILE *stream);
 
 char *fgets(char *s, int size, FILE *stream);
 /**
@@ -64,8 +64,6 @@ int printf(const char *restrict format, ...);
  * 常用于 fprintf(stderr,...)
 */
 int fprintf(FILE *restrict stream, const char *restrict format, ...);
-
-// TODO:
 int dprintf(int fd, const char *restrict format, ...);
 
 /**
@@ -146,9 +144,10 @@ fflush();
 
 /**
  * @prarm: mode
- *         _IONBF
- *         _IOLBF
- *         _IOFBF
+ * 三种缓冲模式: 
+ *            _IONBF
+ *            _IOLBF
+ *            _IOFBF
 */
 int setvbuf(FILE *stream, char *buf, int mode, size_t size);
 
@@ -200,13 +199,40 @@ FILE *tmpfile(void);
 - write
 - lsee
 
+可以使用`./open file &`来后台运行一个程序。
+然后通过`ps`查看进程号
+然后进入`/proc/进程号/fd`查看文件描述符
+前三个是标准输入输出错误，后面的是打开的文件描述符
+
 ```c
 
 /**
+ * flag:
+ *
  * r  -> O_RDONLY
  * r+ -> O_RDWR
  * w  -> O_WRONLY | O_CREAT | O_TRUNC
  * w+ -> O_RDWR   | O_TRUNC | O_CREAT
+ *
+ * O_RDONLY     只读
+ * O_WRONLY     只写
+ * O_RDWR       读写
+ * O_CREAT      创建
+ * O_TRUNC      截断
+ * O_APPEND     追加
+ * O_EXCL       排他(若要创建的文件已存在则报错)
+ * O_NONBLOCK   非阻塞
+ * O_SYNC       同步
+ * O_DSYNC      数据同步
+ * O_RSYNC      读同步
+ * O_DIRECT     直接IO
+ * O_LARGEFILE  大文件
+ * O_DIRECTORY  目录
+ * O_NOFOLLOW   不跟踪符号链接
+ * O_CLOEXEC    close-on-exec
+ * O_PATH       仅打开目录
+ * O_TMPFILE    临时文件
+ * O_NOCTTY     不分配控制终端
  * 
  * 如果有creat就必须用三参数的形式
  * C语言没有重载，这是变参函数
@@ -214,6 +240,7 @@ FILE *tmpfile(void);
  * @prarm: pathname 文件路径
  * @prarm: flags    文件打开方式
  * @prarm: mode     文件权限
+ *                  假如0666，就是rw-rw-rw-，110110110
  * 
 */
 int open(const char *pathname, int flags);
@@ -222,14 +249,12 @@ int open(const char *pathname, int flags, mode_t mode);
 int close(int fd);
 
 /**
- *  read from a file descriptor
- * 
  * @return 读取的字节数，失败返回-1
 */
 ssize_t read(int fd, void *buf, size_t count);
 
 /**
- *  write to a file descriptor
+ *  想要控制写入的位置，需要使用lseek
  * 
  * @return 写入的字节数，失败返回-1
 */
@@ -247,6 +272,16 @@ ssize_t write(int fd, const void *buf, size_t count);
 off_t lseek(int fd, offt offset, int whence);
 
 ```
+
+### 例题：通过文件IO处理csv表格
+```csv
+,语文,数学,英语,总分,评价
+张三,90,91,92,,
+李四,80,81,82,,
+王五,70,71,72,,
+```
+思路：逐行处理
+可以使用16进制查看工具
 
 
 ### 文件IO与标准IO的区别
