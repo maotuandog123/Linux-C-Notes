@@ -411,6 +411,11 @@ p1->read -> p2->write
 
 ### 程序中的重定向：`dup`, `dup2`
 ```c
+/**
+ *  dup 和 dup2 都是复制文件描述符
+ *  dup2 可以指定新的文件描述符
+ *  dup 会返回一个新的文件描述符
+ */
 int dup(int oldfd);
 int dup2(int oldfd, int newfd);
 ```
@@ -687,7 +692,214 @@ long telldir(DIR *dirp);
 
 ## 系统数据文件和信息
 
+> 不同环境可能有区别，以具体查询为准，这里以Linux为例
+
+1. `/etc/passwd`
+```c
+/**
+ *  通过用户名获取用户信息
+*/
+struct passwd *getpwuid(uid_t uid);
+
+/**
+ *  通过用户ID获取用户信息
+*/
+struct passwd *getpwnam(const char *name);
+
+struct passwd {
+    char   *pw_name;       /* username */
+    char   *pw_passwd;     /* user password */
+    uid_t   pw_uid;        /* user ID */
+    gid_t   pw_gid;        /* group ID */
+    char   *pw_gecos;      /* user information */
+    char   *pw_dir;        /* home directory */
+    char   *pw_shell;      /* shell program */
+};
+```
+
+2. `/etc/group`
+```c
+/**
+ *  通过组ID获取组信息
+*/
+struct group *getgrgid(gid_t gid);
+
+/**
+ *  通过组名获取组信息
+*/
+struct group *getgrnam(const char *name);
+
+struct group {
+    char   *gr_name;       /* group name */
+    char   *gr_passwd;     /* group password */
+    gid_t   gr_gid;        /* group ID */
+    char  **gr_mem;        /* group members */
+};
+```
+
+3. `/etc/shadow`
+ll显示root用户也不可读写，但是只有root用户才可读写
+这样是提醒你，即便是root用户，也不要随便读写这个文件
+
+> 密码
+> hash - 混淆，不可逆
+> 如果原串一样，hash值也一样
+> 防备管理员监守自盗
+> 
+> 加密 - 解密
+> 
+> 加密为了安全，攻击成本大于收益
+> 安全？穷举：口令随机校验（第一遍明明对了给你报错，让你连续两遍成功输入正确）
+>
+> 推荐书籍：《应用密码学》
+
+```c
+/**
+  * 获得用户的密码信息
+*/
+struct *spwd getspnam(const char *name);
+
+/**
+ * 加密密码
+ *
+ * @prarm: key  密码
+ * @prarm: salt 盐 杂字串
+ *
+ * 默认 md5 加密方式
+*/
+char *crypt(const char *key, const char *salt);
+
+struct spwd {
+    char *sp_namp;      /* login name */
+    char *sp_pwdp;      /* encrypted password */
+    long  sp_lstchg;    /* last change */
+    long  sp_min;       /* min days between changes */
+    long  sp_max;       /* max days between changes */
+    long  sp_warn;      /* warning days before password
+                           expires */
+    long  sp_inact;     /* days before account inactive */
+    long  sp_expire;    /* days since 1970-01-01 until account
+                           expires */
+    unsigned long sp_flag; /* reserved */
+};
+
+/**
+ * 输入提示符
+*/
+char *getpass(const char *prompt);
+```
+
+4. 时间戳
+机器喜欢大整数 `time_t`
+人类喜欢字符串 `char *`
+程序员喜欢结构体 `struct tm`
+
+```c
+
+/**
+ *  从内核获取以秒为单位的一个时戳
+ *  从 UTC 1970年1月1日0时0分0秒 到现在的秒数
+*/
+time_t time(time_t *t);
+
+// eg: 两种用法
+time_t stamp;
+time(&stamp);
+stamp=time(NULL);
+
+/**
+ *  将时间戳转换为结构体
+*/
+struct tm *gmtime(const time_t *timep);
+struct tm *localtime(const time_t *timep);
+
+sturct tm {
+    int tm_sec;    /* seconds */
+    int tm_min;    /* minutes */
+    int tm_hour;   /* hours */
+    int tm_mday;   /* day of the month */
+    int tm_mon;    /* month */
+    int tm_year;   /* year */
+    int tm_wday;   /* day of the week */
+    int tm_yday;   /* day in the year */
+    int tm_isdst;  /* daylight saving time */
+                   /* daylight 夏令时调整 */
+};
+
+/**
+ *  将结构体转换为时间戳
+ *  ! 没有 const，可能更改 tm
+*/
+time_t mktime(struct tm *tm);
+
+/**
+ * 格式化输出时间
+*/
+size_t strftime(char *s, size_t max, const char *format,
+                const struct tm *tm);
+
+// eg
+strftime(buf, sizeof(buf), "%Y-%m-%d %H:%M:%S", tm);
+```
 
 
 ## 进程环境
 
+### `main`函数
+```c
+int main(int argc, char *argv[]);
+```
+
+### 进程的终止
+1. 正常终止:
+    - 从`main`函数返回
+    - 调用`exit`
+      `void exit(int status);`
+      status & 0377 有符号的char -128~127
+
+    - 调用`_exit`或者`_Exit`（系统调用）
+    > `exit`与`_exit _Exit`的区别
+    > `_exit`不执行`atexit`注册的函数，不刷新`stdio`缓冲区
+    > 这样可以防止错误扩散
+    - 最后一个线程从其启动例程返回
+    - 最后一个线程调用了`pthread_exit`
+
+2. 异常终止
+    - 调用`abort`
+    - 接到一个信号并终止
+    - 最后一个线程对其取消请求作出响应
+
+
+```c
+/**
+ *  注册一个函数，当进程终止时调用
+ *  
+ *  钩子函数：逆序执行
+ *  可以进行资源释放
+*/
+int atexit(void (*function)(void));// 钩子函数
+```
+
+### 命令行参数的分析
+```c
+#include <unistd.h>
+
+extern char *optarg; // 选项参数
+// optind: 下一个要处理的参数的索引
+extern int optind, opterr, optopt;
+
+int getopt(int argc, char *const argv[], const char *optstring);
+
+int getopt_long(int argc, char *const argv[], const char *optstring,
+                const struct option *longopts, int *longindex);
+```
+
+### 环境变量
+
+### C程序的存储空间布局
+
+### 库
+
+### 函数之间正常的跳转
+
+### 资源的获取及控制
