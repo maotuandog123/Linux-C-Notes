@@ -969,3 +969,141 @@ struct rlimit {
     rlim_t rlim_max;  /* hard limit */
 };
 ```
+
+
+# 进程基本知识
+
+已经进入**多进程**阶段
+
+## 进程标识符`pid`
+类型`pid_t`，传统意义上是一个16位有符号整型数。
+命令`ps`
+常用命令：`ps axf`，`ps aux`，`ps axm`，`ps ax -L`
+进程号是顺次向下使用
+```c
+// 返回当前进程号
+pid_t getpid(void);
+
+// 返回父进程的进程号
+pid_t getppid(void);
+```
+
+## 进程的产生
+
+`pid_t fork();`
+- 以**复制（duplicating）**当前进程的方式创建一个新进程
+- 和`setjmp`一样，执行一次，返回两次
+- 在`fork`处复制，不会从头运行
+
+`fork`后父子进程的不同之处：
+1. `fork`的返回值不一样
+2. `pid`不同
+3. `ppid`也不同
+4. 未决信号和文件锁不继承
+5. 资源利用量清0
+
+`init`进程：**1号**，是所有进程的祖先进程
+
+调度器的调度策略来决定哪个进程先执行
+
+`fflush()`的重要性
+
+```c
+/*
+ *  vfork创建的子进程只能做exec或者exit
+ *  ! 基本废弃
+ */
+pid_t vfork(void);
+```
+
+## 进程的消亡及释放资源
+```c
+// 等待进程状态发生变化
+pid_t wait(int *status); // 阻塞
+
+pid_t waitpid(pid_t pid, int *status, int options);
+
+int waitid(idtype_t idtype, id_t id, siginfo_t *infop, int options);
+
+
+wait3();
+wait4();
+```
+
+分配法和交叉分配法，90%优先选择交叉分配法。
+
+池类算法：
+上游往池子里放任务，下游三个线程从池子里取任务。
+
+## `exec`函数族
+eg. `bash`进程创建`primer`进程
+
+```c
+// exec函数族：替换当前进程的映像
+
+extern char **environ;
+
+int execl(const char *path, const char *arg, ...);
+
+int execlp(const char *file, const char *arg, ...);
+
+int execle(const char *path, const char *arg, ..., char * const envp[]);
+
+int execv(const char *path, char *const argv[]);
+
+int execvp(const char *file, char *const argv[]);
+
+```
+
+## 用户权限及组权限
+
+
+## 观摩课：解释器文件
+
+
+## `system()`函数
+
+
+## 进程会计
+
+
+## 进程时间
+
+
+## 守护进程
+
+
+## 系统日志
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
