@@ -895,11 +895,77 @@ int getopt_long(int argc, char *const argv[], const char *optstring,
 ```
 
 ### 环境变量
+**KEY = VALVE**
+可以通过`export`命令查看
+
+```c
+char *getenv(const char *name);
+
+/*
+ * change or add
+ * 
+ * @prarm: overwrite  是否覆盖
+ *
+ * 覆盖时是释放原来的空间，重新分配
+ */
+int setenv(const char *name, const char *value, int overwrite);
+int unsetenv(const char *name);
+
+/*
+ * 和getenv一样的作用，change or add
+ * 用法不一样，且没有const修饰
+ */
+int putenv(char *string);
+```
 
 ### C程序的存储空间布局
+`pmap`命令，查看进程空间布局
 
 ### 库
+- 动态库
+- 静态库
+- 手工装载库
+    ```c
+    void *dlopen(const char *filename, int flag);
+    char *dlerror(void);
+    int dlclose(void *handle);
+    void *dlsym(void *handle, const char *symbol);
+    // Link with -ldl
+    ```
 
 ### 函数之间正常的跳转
+`goto`无法跨函数跳转。
+
+```c
+/*
+ *  设置跳转点
+ *  
+ * @return  0  说明是在设置跳转点
+ * @return 非0 说明是通过 longjmp 返回
+ */
+int setjmp(jmp_buf env);
+
+/*
+ * 跳转到跳转点
+ *
+ * @prarm: env  跳转点 
+ * @prarm: val  传递给 setjmp 的值
+ */
+void longjmp(jmp_buf env, int val);
+```
 
 ### 资源的获取及控制
+`ulimit -a`
+
+```c
+// get/set resource limits
+int getrlimit(int resource, struct rlimit *rlim);
+int setrlimit(int resource, const struct rlimit *rlim);
+
+// 普通用户不能设置超过硬限制
+// root 用户可以 升高/降低 硬限制
+struct rlimit {
+    rlim_t rlim_cur;  /* soft limit */
+    rlim_t rlim_max;  /* hard limit */
+};
+```
