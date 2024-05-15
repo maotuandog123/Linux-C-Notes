@@ -1057,6 +1057,61 @@ int execvp(const char *file, char *const argv[]);
 
 ## 用户权限及组权限
 
+`u+s`：如果文件是可执行的，则执行文件时，是以文件的拥有者的权限执行的。
+
+```bash
+-rwsr-xr-x 1 root root 68248 Mar 23  2023 /usr/bin/passwd
+```
+所以普通用户执行`passwd`时，是以`root`的权限执行的。
+
+`g+s`：如果文件是可执行的，则执行文件时，是以文件的所在组的权限执行的。
+
+`uid`和`gid`都有三种类型：
+1. `real uid`：进程的实际所有者
+2. `effective uid`：进程的有效所有者
+3. `saved uid`：进程的保存的有效所有者
+
+```
+shell获取身份的流程
+      fork         exec         fork
+init -->--> getty -->--> login -->--> shell
+      exec                      exec
+root        root         root         user
+```
+
+```c
+
+// 获取当前用户的real uid
+uid_t getuid(void);
+
+// 获取当前用户的effective uid
+uid_t geteuid(void);
+
+// 获取当前进程的real gid
+pid_t getegid(void);
+
+// 获取当前进程的effective gid
+pid_t getgid(void);
+
+// 设置当前进程的real uid
+int setuid(uid_t uid);
+
+// 设置当前进程的effective uid
+int seteuid(uid_t uid);
+
+// 设置当前进程的real gid
+int setgid(gid_t gid);
+
+// 设置当前进程的effective gid  
+int setegid(gid_t gid);
+
+// 交换uid和gid （原子操作）
+int setreuid(uid_t ruid, uid_t euid);
+
+// 交换gid和egid （原子操作）
+int setregid(gid_t rgid, gid_t egid);
+
+```
 
 ## 观摩课：解释器文件
 
