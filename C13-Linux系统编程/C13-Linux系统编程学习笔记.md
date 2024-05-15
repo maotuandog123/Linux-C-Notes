@@ -1115,28 +1115,110 @@ int setregid(gid_t rgid, gid_t egid);
 
 ## 观摩课：解释器文件
 
+> unix讲究机制而非策略
+
+脚本，后缀名是什么都可以，一般用`sh`, `exec`
+```bash
+#!/bin/cat
+
+# some shell
+```
+`#!`是一种约定俗成的标记，告诉系统这个脚本应该用什么解释器来执行。
+
 
 ## `system()`函数
-
+```c
+/*
+ *  运行一个shell命令
+ *  调用/bin/sh
+ */
+int system(const char *command);
+```
+相当于`fork+exec+wait`的封装
 
 ## 进程会计
-
+```c
+//! freeBSD系统的方言
+int acct(const char *filename);
+```
 
 ## 进程时间
+```c
+clock_t times(struct tms *buf);
 
+// clock_t 滴答数
+
+struct tms{
+    clock_t tms_utime;  /* user time */
+    clock_t tms_stime;  /* system time */
+    clock_t tms_cutime; /* user time of children */
+    clock_t tms_cstime; /* system time of children */
+}
+
+```
 
 ## 守护进程
 
+1. 守护进程`PPID`为1
+2. 守护进程没有控制终端，`TTY`为?
+3. `PID, PGID, SID`相同
+
+```c
+pid_t setpgid(pid_t pid, pid_t pgid);
+pid_t getpgid(pid_t pid);
+
+pid_t getpgrp(void); //! 方言
+pid_t getpgrp(psid_t pid); //! 方言
+```
+
+- 会话（session）：一个或多个进程组的集合，以`sid`为标识
+  `pid_t setsid(void);`
+  `setsid`必须由非`leader`进程调用，从而创建一个新的会话。
+    - 前台进程组：正在与终端交互的进程组
+    - 后台进程组：正在运行，但不与终端交互的进程组
+
+- 终端：
+  我们接触的都是虚拟终端
+
+
+**单实例守护进程**：锁文件`/var/run/name.pid`
+
+启动脚本文件：`/etc/rc*...`
+
 
 ## 系统日志
+`syslogd`服务
+```c
+#include <syslog.h>
 
+/**
+ *  打开系统日志
+ *
+ * @prarm: ident  标识符
+ * @prarm: option 选项   LOG_CONS, LOG_NDELAY, LOG_NOWAIT, LOG_PERROR ...
+ * @prarm: facility  来源  LOG_USER, LOG_DAEMON, LOG_KERN, LOG_LOCAL0~7 ...
+ */
+void openlog(const char *ident, int option, int facility);
 
+/**
+ *  记录系统日志
+ *
+ * @prarm: priority  优先级 以 ERR 与 WARNING 为分界点
+ * @prarm: format 格式化字符串
+ * @prarm: ... 格式化参数
+ */
+void syslog(int priority, const char *format, ...);
 
+/**
+ *  关闭系统日志
+ */ 
+void closelog(void);
+```
 
-
-
-
-
+```bash
+sudo tail /var/log/messages  # 老师
+journalctl -r  # 我的debian
+```
 
 
 
