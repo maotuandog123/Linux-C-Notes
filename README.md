@@ -12,6 +12,8 @@ Linux环境C语言开发学习笔记
 
 ## 本仓库内容
 教学过程中所有的课程笔记和代码示例。
+- C01 ~ C12 : Linux环境C语言基础
+- C13 以后   : Linux环境系统编程
 
 ## 作者博客
 [fugu的小站](https://lzyyyyyy.fun/index.php/tag/%E6%9D%8E%E6%85%A7%E8%8A%B9/)也会同步更新，欢迎造访以获得更好的在线`markdown`阅读体验。
