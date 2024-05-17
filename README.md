@@ -15,5 +15,28 @@ Linux环境C语言开发学习笔记
 - C01 ~ C12 : Linux环境C语言基础
 - C13 以后   : Linux环境系统编程
 
+## 环境搭建步骤
+
+### 一、拥有一个linux系统
+- 虚拟机
+- WSL(Windows Subsystem for Linux)
+- 云服务器
+- 双系统
+
+### 二、安装编译环境
+
+- 编译器：`gcc version 12.2.0 (Debian 12.2.0-14)`
+- 代码提示：`clangd-vscode`
+- 代码格式化：`clang-format`
+- 调试工具：`gdb`
+- 版本控制：`git`
+- 编辑器：`vscode`
+- AI补全：`Fitten Code`
+
+### 三、下载仓库
+- `fork`并且`clone`到本地（推荐）
+- 直接下载压缩包到本地解压
+
+
 ## 作者博客
 [fugu的小站](https://lzyyyyyy.fun/index.php/tag/%E6%9D%8E%E6%85%A7%E8%8A%B9/)也会同步更新，欢迎造访以获得更好的在线`markdown`阅读体验。
