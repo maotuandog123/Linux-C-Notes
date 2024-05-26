@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-extern char **environ;
+extern char** environ;
 
-int main(int argc, char **argv)
+int main(int argc, char** argv)
 {
 
     for (int i = 0; environ[i] != NULL; i++)

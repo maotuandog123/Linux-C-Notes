@@ -8,7 +8,7 @@
 
 #define STRSIZE 10
 
-int main()
+int main( )
 {
     // printf("hello world\n");
 
@@ -16,17 +16,16 @@ int main()
     // printf("%c\n", ch);
     // out: A
 
-    int i = 255;
-    float f = 123.45678;
-    char str[STRSIZE] = "helloworld";
-    double dou = 123.456;
-    long long l = 123456;
+    int       i            = 255;
+    float     f            = 123.45678;
+    char      str[STRSIZE] = "helloworld";
+    double    dou          = 123.456;
+    long long l            = 123456;
     // 不加\n，before while()存入了缓冲区，故不输出
     // printf("[%s:%d]before while().", __FUNCTION__, __LINE__);
     printf("[%s:%d]before while().\n", __FUNCTION__, __LINE__);
     while (1)
-    {
-    }
+    {}
     // printf("[%s:%d]after while().", __FUNCTION__, __LINE__);
     printf("[%s:%d]after while().\n", __FUNCTION__, __LINE__);
     // printf("f = %8.1f\n", f);

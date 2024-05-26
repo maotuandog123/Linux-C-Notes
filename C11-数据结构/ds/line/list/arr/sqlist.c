@@ -3,9 +3,9 @@
 
 #include "sqlist.h"
 
-sqlist *sqlist_create()
+sqlist* sqlist_create( )
 {
-    sqlist *me;
+    sqlist* me;
 
     me = malloc(sizeof(*me));
     if (NULL == me)
@@ -16,7 +16,7 @@ sqlist *sqlist_create()
     return me;
 }
 
-void sqlist_create1(sqlist **ptr)
+void sqlist_create1(sqlist** ptr)
 {
     *ptr = malloc(sizeof(**ptr));
     if (NULL == *ptr)
@@ -26,7 +26,7 @@ void sqlist_create1(sqlist **ptr)
     return;
 }
 
-int sqlist_insert(sqlist *me, int i, datatype *data)
+int sqlist_insert(sqlist* me, int i, datatype* data)
 {
     int j;
 
@@ -48,7 +48,7 @@ int sqlist_insert(sqlist *me, int i, datatype *data)
     return 0;
 }
 
-int sqlist_delete(sqlist *me, int i)
+int sqlist_delete(sqlist* me, int i)
 {
     int j;
 
@@ -65,7 +65,7 @@ int sqlist_delete(sqlist *me, int i)
     return 0;
 }
 
-int sqlist_find(sqlist *me, datatype *data)
+int sqlist_find(sqlist* me, datatype* data)
 {
     if (0 == sqlist_isempty(me))
         return -1;
@@ -79,25 +79,25 @@ int sqlist_find(sqlist *me, datatype *data)
     return -2;
 }
 
-int sqlist_isempty(sqlist *me)
+int sqlist_isempty(sqlist* me)
 {
     if (-1 == me->last)
         return 0;
     return -1;
 }
 
-int sqlist_setempty(sqlist *me)
+int sqlist_setempty(sqlist* me)
 {
     me->last = -1;
     return 0;
 }
 
-int sqlist_getnum(sqlist *me)
+int sqlist_getnum(sqlist* me)
 {
     return me->last + 1;
 }
 
-void sqlist_display(sqlist *me)
+void sqlist_display(sqlist* me)
 {
     if (-1 == me->last)
         return;
@@ -108,13 +108,13 @@ void sqlist_display(sqlist *me)
     printf("\n");
 }
 
-int sqlist_destroy(sqlist *me)
+int sqlist_destroy(sqlist* me)
 {
     free(me);
     return 0;
 }
 
-int sqlist_union(sqlist *list1, sqlist *list2)
+int sqlist_union(sqlist* list1, sqlist* list2)
 {
     // list1 -> 12 23 34 45 56
     // list2 -> 78 89 56 23 10

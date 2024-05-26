@@ -3,7 +3,7 @@
 
 #define STRSIZE 32
 
-int main()
+int main( )
 {
     char str[STRSIZE];
     gets(str);

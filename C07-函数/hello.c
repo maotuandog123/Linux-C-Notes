@@ -4,9 +4,9 @@
 void print_hello(void);
 
 // 主调函数
-int main()
+int main( )
 {
-    print_hello();
+    print_hello( );
 
     exit(0);
 }

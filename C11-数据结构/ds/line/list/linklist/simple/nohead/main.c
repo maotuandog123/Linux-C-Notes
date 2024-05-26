@@ -3,18 +3,18 @@
 
 #include "nohead.h"
 
-int main()
+int main( )
 {
     int             i, ret;
-    struct node_st *list = NULL;
+    struct node_st* list = NULL;
     struct score_st tmp;
 
     for (i = 0; i < 7; i++)
     {
         tmp.id = i;
         snprintf(tmp.name, NAMESIZE, "stu%d", i);
-        tmp.math    = rand() % 100;
-        tmp.chinese = rand() % 100;
+        tmp.math    = rand( ) % 100;
+        tmp.chinese = rand( ) % 100;
 
         // list = list_insert(list, &tmp);
         ret = list_insert(&list, &tmp);
@@ -28,7 +28,7 @@ int main()
     printf("\n\n");
 
     int              id = 13;
-    struct score_st *ptr;
+    struct score_st* ptr;
     ptr = list_find(&list, id);
     if (NULL == ptr)
         printf("Can not find!\n");

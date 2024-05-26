@@ -16,7 +16,7 @@
  *
  * @return  int
  */
-int main(int argc, char **argv)
+int main(int argc, char** argv)
 {
     if (argc < 2)
     {
@@ -24,9 +24,9 @@ int main(int argc, char **argv)
         exit(1);
     }
 
-    char        *input_pass;
-    struct spwd *shadowline;
-    char        *crypt_pass;
+    char*        input_pass;
+    struct spwd* shadowline;
+    char*        crypt_pass;
 
     //* getpass()函数在输入密码时不会回显密码
     input_pass = getpass("PassWord: ");

@@ -6,7 +6,7 @@
 typedef struct node_st
 {
     int             data;
-    struct node_st *next;
+    struct node_st* next;
 } list;
 
 // try something
@@ -32,7 +32,7 @@ list *jose_create(int a[], int n)
 }
 #endif
 
-list *jose_create(int n)
+list* jose_create(int n)
 {
     list *me, *newnode, *cur;
     int   i = 1;
@@ -61,9 +61,9 @@ list *jose_create(int n)
     return me;
 }
 
-void jose_show(list *me)
+void jose_show(list* me)
 {
-    list *list;
+    list* list;
 
     for (list = me; list->next != me; list = list->next)
     {
@@ -74,7 +74,7 @@ void jose_show(list *me)
     printf("%d\n", list->data);
 }
 
-void jose_kill(list **me, int n)
+void jose_kill(list** me, int n)
 {
     list *cur = *me, *node;
     int   i   = 1;
@@ -101,9 +101,9 @@ void jose_kill(list **me, int n)
     printf("\n");
 }
 
-int main()
+int main( )
 {
-    list *list;
+    list* list;
 
     list = jose_create(JOSE_NUM);
 

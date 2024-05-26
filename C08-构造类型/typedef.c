@@ -47,7 +47,7 @@ NODEP p;   // struct node_st *p;
  *
  */
 
-int main()
+int main( )
 {
     INT i = 100;   // int i;
 

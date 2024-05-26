@@ -3,9 +3,9 @@
 
 #include "sqstack.h"
 
-sqstack *st_create(void)
+sqstack* st_create(void)
 {
-    sqstack *st;
+    sqstack* st;
 
     st = malloc(sizeof(*st));
     if (NULL == st)
@@ -16,12 +16,12 @@ sqstack *st_create(void)
     return st;
 }
 
-int st_isempty(sqstack *st)
+int st_isempty(sqstack* st)
 {
     return (-1 == st->top);
 }
 
-int st_push(sqstack *st, type *data)
+int st_push(sqstack* st, type* data)
 {
     if (SIZE - 1 == st->top)
         return -1;
@@ -32,7 +32,7 @@ int st_push(sqstack *st, type *data)
 }
 
 /* 取出栈顶元素 */
-int st_pop(sqstack *st, type *data)
+int st_pop(sqstack* st, type* data)
 {
     if (st_isempty(st))
         return -1;
@@ -44,7 +44,7 @@ int st_pop(sqstack *st, type *data)
 
 
 /* 查看栈顶元素 */
-int st_top(sqstack *st, type *data)
+int st_top(sqstack* st, type* data)
 {
     if (st_isempty(st))
         return -1;
@@ -54,7 +54,7 @@ int st_top(sqstack *st, type *data)
     return 0;
 }
 
-void st_travel(sqstack *st)
+void st_travel(sqstack* st)
 {
     if (st_isempty(st))
         return;
@@ -66,7 +66,7 @@ void st_travel(sqstack *st)
     printf("\n");
 }
 
-void st_destroy(sqstack *st)
+void st_destroy(sqstack* st)
 {
     free(st);
 }

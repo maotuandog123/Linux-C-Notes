@@ -10,7 +10,7 @@
 
 #define STR_SIZE 32
 
-int main()
+int main( )
 {
     char str[32]        = "hello\0abc";
     char str1[STR_SIZE] = "hello";

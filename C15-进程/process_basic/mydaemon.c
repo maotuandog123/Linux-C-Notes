@@ -16,7 +16,7 @@ static int deamonize(void)
     pid_t pid;
     int   fd;
 
-    pid = fork();
+    pid = fork( );
     if (pid < 0)
         return -1;
 
@@ -33,7 +33,7 @@ static int deamonize(void)
     if (fd > 2)
         close(fd);
 
-    setsid();
+    setsid( );
 
     chdir("/");   // 防止一直占用某设备
     // umask(0);
@@ -41,14 +41,14 @@ static int deamonize(void)
     return 0;
 }
 
-int main(int argc, char **argv)
+int main(int argc, char** argv)
 {
-    FILE *fp;
+    FILE* fp;
     int   i;
 
     openlog("mydaemon", LOG_PID, LOG_DAEMON);
 
-    if (deamonize())
+    if (deamonize( ))
     {
         syslog(LOG_ERR, "daemonize() failed!");
         exit(1);
@@ -77,7 +77,7 @@ int main(int argc, char **argv)
 
     // 目前守护进程只能异常终止，下面其实无法执行到
     fclose(fp);
-    closelog();
+    closelog( );
 
     exit(0);
 }

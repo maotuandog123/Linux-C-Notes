@@ -20,7 +20,7 @@ static void c(void)
     printf("%s():Begin.\n", __FUNCTION__);
     printf("%s():Call d().\n", __FUNCTION__);
 
-    d();
+    d( );
 
     printf("%s():d() returned.\n", __FUNCTION__);
     printf("%s():End.\n", __FUNCTION__);
@@ -31,7 +31,7 @@ static void b(void)
     printf("%s():Begin.\n", __FUNCTION__);
     printf("%s():Call c().\n", __FUNCTION__);
 
-    c();
+    c( );
 
     printf("%s():c() returned.\n", __FUNCTION__);
     printf("%s():End.\n", __FUNCTION__);
@@ -47,7 +47,7 @@ static void a(void)
     if (0 == ret)
     {
         printf("%s():Call b().\n", __FUNCTION__);
-        b();
+        b( );
         printf("%s():b() returned.\n", __FUNCTION__);
     }
     else
@@ -68,12 +68,12 @@ static void a(void)
  * @param    argv
  * @return  int
  */
-int main(int argc, char **argv)
+int main(int argc, char** argv)
 {
     printf("%s():Begin.\n", __FUNCTION__);
     printf("%s():Call a().\n", __FUNCTION__);
 
-    a();
+    a( );
 
     printf("%s():a() returned.\n", __FUNCTION__);
     printf("%s():End.\n", __FUNCTION__);

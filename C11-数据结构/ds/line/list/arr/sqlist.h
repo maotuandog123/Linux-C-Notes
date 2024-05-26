@@ -11,26 +11,26 @@ typedef struct node_st
     int      last;
 } sqlist;
 
-sqlist *sqlist_create();
-void    sqlist_create1(sqlist **me);
+sqlist* sqlist_create( );
+void    sqlist_create1(sqlist** me);
 
-int sqlist_insert(sqlist *, int i, datatype *data);
+int sqlist_insert(sqlist*, int i, datatype* data);
 
-int sqlist_delete(sqlist *, int i);
+int sqlist_delete(sqlist*, int i);
 
-int sqlist_find(sqlist *, datatype *data);
+int sqlist_find(sqlist*, datatype* data);
 
-int sqlist_isempty(sqlist *);
+int sqlist_isempty(sqlist*);
 
-int sqlist_setempty(sqlist *);
+int sqlist_setempty(sqlist*);
 
-int sqlist_getnum(sqlist *);
+int sqlist_getnum(sqlist*);
 
-void sqlist_display(sqlist *);
+void sqlist_display(sqlist*);
 
-int sqlist_destroy(sqlist *);
+int sqlist_destroy(sqlist*);
 
-int sqlist_union(sqlist *, sqlist *);
+int sqlist_union(sqlist*, sqlist*);
 
 
 #endif

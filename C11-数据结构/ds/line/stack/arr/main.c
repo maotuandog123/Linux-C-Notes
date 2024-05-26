@@ -3,13 +3,13 @@
 
 #include "sqstack.h"
 
-int main()
+int main( )
 {
     datatype arr[] = {19, 23, 0, 45, 67};
-    sqstack *st;
+    sqstack* st;
     int      i;
 
-    st = st_create();
+    st = st_create( );
     if (NULL == st)
         exit(1);
 

@@ -96,10 +96,10 @@ void print_star(void)
     printf("[%s]i=%d\n", __FUNCTION__, i);
 }
 
-int main()
+int main( )
 {
     for (i = 0; i < 5; i++)
-        print_star();
+        print_star( );
     printf("\n");
 
     // out:

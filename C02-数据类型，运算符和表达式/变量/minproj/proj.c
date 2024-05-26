@@ -13,5 +13,5 @@ static void func(void)
 
 void call_func(void)
 {
-    func();
+    func( );
 }

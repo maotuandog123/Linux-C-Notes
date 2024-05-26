@@ -16,7 +16,7 @@ static void f3(void)
     puts("f3() is working!");
 }
 
-int main(int argc, char **argv)
+int main(int argc, char** argv)
 {
     puts("Begin!");
 

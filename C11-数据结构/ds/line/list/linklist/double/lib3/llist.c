@@ -4,15 +4,15 @@
 
 #include "llist.h"
 
-int   llist_insert(LLIST *ptr, const void *data, int mode);
-void *llist_find(LLIST *ptr, const void *key, llist_cmp *);
-int   llist_delete(LLIST *, const void *key, llist_cmp *);
-int   llist_fetch(LLIST *, const void *key, llist_cmp *, void *data);
-void  llist_travel(LLIST *ptr, llist_op *op);
+int   llist_insert(LLIST* ptr, const void* data, int mode);
+void* llist_find(LLIST* ptr, const void* key, llist_cmp*);
+int   llist_delete(LLIST*, const void* key, llist_cmp*);
+int   llist_fetch(LLIST*, const void* key, llist_cmp*, void* data);
+void  llist_travel(LLIST* ptr, llist_op* op);
 
-LLIST *llist_create(int initsize)
+LLIST* llist_create(int initsize)
 {
-    LLIST *new;
+    LLIST* new;
 
     new = malloc(sizeof(*new));   // !!! 不是sizeof(initsize),也不是new,是*new
     if (NULL == new)
@@ -31,9 +31,9 @@ LLIST *llist_create(int initsize)
     return new;
 }
 
-int llist_insert(LLIST *ptr, const void *data, int mode)
+int llist_insert(LLIST* ptr, const void* data, int mode)
 {
-    struct llist_node_st *newnode;
+    struct llist_node_st* newnode;
 
     newnode = malloc(sizeof(*newnode) + ptr->size);   // -4
     if (NULL == newnode)
@@ -63,9 +63,9 @@ int llist_insert(LLIST *ptr, const void *data, int mode)
     return 0;
 }
 
-static struct llist_node_st *find_(LLIST *ptr, const void *key, llist_cmp *cmp)
+static struct llist_node_st* find_(LLIST* ptr, const void* key, llist_cmp* cmp)
 {
-    struct llist_node_st *cur;
+    struct llist_node_st* cur;
 
     for (cur = ptr->head.next; cur != &ptr->head; cur = cur->next)
     {
@@ -76,9 +76,9 @@ static struct llist_node_st *find_(LLIST *ptr, const void *key, llist_cmp *cmp)
     return cur;   // 找不到的时候，返回的cur就是ptr，返回NULL
 }
 
-void *llist_find(LLIST *ptr, const void *key, llist_cmp *cmp)
+void* llist_find(LLIST* ptr, const void* key, llist_cmp* cmp)
 {
-    struct llist_node_st *node;
+    struct llist_node_st* node;
     node = find_(ptr, key, cmp);
     if (node == &ptr->head)
         return NULL;
@@ -86,9 +86,9 @@ void *llist_find(LLIST *ptr, const void *key, llist_cmp *cmp)
     return node->data;
 }
 
-int llist_delete(LLIST *ptr, const void *key, llist_cmp *cmp)
+int llist_delete(LLIST* ptr, const void* key, llist_cmp* cmp)
 {
-    struct llist_node_st *node;
+    struct llist_node_st* node;
 
     node = find_(ptr, key, cmp);
     if (node == &ptr->head)
@@ -101,9 +101,9 @@ int llist_delete(LLIST *ptr, const void *key, llist_cmp *cmp)
     return 0;
 }
 
-int llist_fetch(LLIST *ptr, const void *key, llist_cmp *cmp, void *data)
+int llist_fetch(LLIST* ptr, const void* key, llist_cmp* cmp, void* data)
 {
-    struct llist_node_st *node;
+    struct llist_node_st* node;
 
     node = find_(ptr, key, cmp);
     if (node == &ptr->head)
@@ -120,15 +120,15 @@ int llist_fetch(LLIST *ptr, const void *key, llist_cmp *cmp, void *data)
     return 0;
 }
 
-void llist_travel(LLIST *ptr, llist_op *op)
+void llist_travel(LLIST* ptr, llist_op* op)
 {
-    struct llist_node_st *cur;
+    struct llist_node_st* cur;
 
     for (cur = ptr->head.next; cur != &ptr->head; cur = cur->next)
         op(cur->data);
 }
 
-void llist_destroy(LLIST *ptr)
+void llist_destroy(LLIST* ptr)
 {
     struct llist_node_st *cur, *next;
 

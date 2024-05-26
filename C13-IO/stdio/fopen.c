@@ -3,9 +3,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-int main()
+int main( )
 {
-    FILE *fp;
+    FILE* fp;
 
     fp = fopen("tmp", "r");
     if (NULL == fp)

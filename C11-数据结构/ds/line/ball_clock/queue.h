@@ -12,18 +12,18 @@ typedef struct
 } queue;
 
 
-queue *qu_create();
+queue* qu_create( );
 
-int qu_isempty();
+int qu_isempty( );
 
-int qu_enqueue(queue *, datatype *);
+int qu_enqueue(queue*, datatype*);
 
-int qu_dequeue(queue *, datatype *);
+int qu_dequeue(queue*, datatype*);
 
-void qu_travel(queue *);
+void qu_travel(queue*);
 
-void qu_clear(queue *);
+void qu_clear(queue*);
 
-void qu_destroy(queue *);
+void qu_destroy(queue*);
 
 #endif

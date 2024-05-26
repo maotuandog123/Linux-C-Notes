@@ -27,7 +27,7 @@ enum
 // };
 
 
-int main()
+int main( )
 {
     // enum day a = MON;
 

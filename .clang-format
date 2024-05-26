@@ -253,7 +253,7 @@ PenaltyExcessCharacter: 1000000
 PenaltyReturnTypeOnItsOwnLine: 120
 
 # 指针和引用的对齐: Left, Right, Middle
-PointerAlignment: Right
+PointerAlignment: Left
 
 # 允许重新排版注释
 ReflowComments: true
@@ -290,7 +290,7 @@ SpaceBeforeRangeBasedForLoopColon: true
 SpaceBeforeSquareBrackets: false
 
 # 在空的圆括号中添加空格
-SpaceInEmptyParentheses: false
+SpaceInEmptyParentheses: true
 
 # 在尾随的评论前添加的空格数(只适用于//)
 SpacesBeforeTrailingComments: 3

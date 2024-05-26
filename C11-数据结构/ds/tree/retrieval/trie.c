@@ -9,14 +9,14 @@
 
 struct node_st
 {
-    struct node_st *ch[26];
+    struct node_st* ch[26];
     char            desc[DESC_SIZE];
 };
 
-static int get_word(FILE *fp, char *key, char *desc)
+static int get_word(FILE* fp, char* key, char* desc)
 {
     char  buf[BUFSIZE];
-    char *retp;
+    char* retp;
     int   i, j;
 
     retp = fgets(buf, BUFSIZE, fp);
@@ -36,9 +36,9 @@ static int get_word(FILE *fp, char *key, char *desc)
     return 0;
 }
 
-static struct node_st *newnode()
+static struct node_st* newnode( )
 {
-    struct node_st *node;
+    struct node_st* node;
     int             i;
 
     node = malloc(sizeof(*node));
@@ -53,11 +53,11 @@ static struct node_st *newnode()
     return node;
 }
 
-static int insert(struct node_st **root, char *key, char *desc)
+static int insert(struct node_st** root, char* key, char* desc)
 {
     if (NULL == *root)
     {
-        *root = newnode();
+        *root = newnode( );
         if (NULL == *root)
             return -1;
     }
@@ -71,7 +71,7 @@ static int insert(struct node_st **root, char *key, char *desc)
     return insert((*root)->ch + *key - 'a', key + 1, desc);
 }
 
-static char *find(struct node_st *root, char *key)
+static char* find(struct node_st* root, char* key)
 {
     if (NULL == root)
         return NULL;
@@ -82,13 +82,13 @@ static char *find(struct node_st *root, char *key)
     return find(root->ch[*key - 'a'], key + 1);
 }
 
-int main()
+int main( )
 {
-    struct node_st *tree;
-    FILE           *fp;
+    struct node_st* tree;
+    FILE*           fp;
     char            desc[DESC_SIZE] = {'\0'}, key[KEY_SIZE] = {'\0'};
     int             ret;
-    char           *datap;
+    char*           datap;
 
     fp = fopen(FNAME, "r");
     if (NULL == fp)

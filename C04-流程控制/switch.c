@@ -1,26 +1,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main()
+int main( )
 {
     int ch;
 
-    ch = getchar();
+    ch = getchar( );
 
     switch (ch)
     {
     case 'a':
-    case 'A':
-        printf("Ant\n");
-        break;
+    case 'A': printf("Ant\n"); break;
     case 'b':
-    case 'B':
-        printf("Butterfly\n");
-        break;
+    case 'B': printf("Butterfly\n"); break;
     case 'c':
-    case 'C':
-        printf("Cobra\n");
-        break;
+    case 'C': printf("Cobra\n"); break;
     default:
         printf("Input error");
         // break;

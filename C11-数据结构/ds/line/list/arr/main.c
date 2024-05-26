@@ -3,17 +3,17 @@
 
 #include "sqlist.h"
 
-int main()
+int main( )
 {
-    sqlist *list  = NULL;
-    sqlist *list1 = NULL;
+    sqlist* list  = NULL;
+    sqlist* list1 = NULL;
 
     datatype arr[]  = {12, 23, 34, 45, 56};
     datatype arr1[] = {89, 90, 78, 67, 56, 43};
 
     int i, err;
 
-    list = sqlist_create();
+    list = sqlist_create( );
     // sqlist_create1(&list);
     if (NULL == list)
     {
@@ -21,7 +21,7 @@ int main()
         exit(1);
     }
 
-    list1 = sqlist_create();
+    list1 = sqlist_create( );
     if (NULL == list1)
     {
         fprintf(stderr, "sqlist_create() failed!\n");

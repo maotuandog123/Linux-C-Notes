@@ -27,7 +27,7 @@ static void alrm_handler(int s)
  * @param    argv
  * @return   int
  ***********************************************************************/
-int main(int argc, char **argv)
+int main(int argc, char** argv)
 {
     int  sfd, dfd = 1;
     char buf[BUFSIZE];
@@ -59,9 +59,9 @@ int main(int argc, char **argv)
     while (1)
     {
         while (token <= 0)
-            pause();   //!
+            pause( );   //!
 
-        token--;       //!!! 这条指令不一定原子
+        token--;        //!!! 这条指令不一定原子
 
         //* 阻塞在这里的时候，token会自增
         while ((len = read(sfd, buf, BUFSIZE)) < 0)

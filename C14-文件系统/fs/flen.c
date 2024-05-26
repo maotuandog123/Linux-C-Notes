@@ -4,7 +4,7 @@
 #include <sys/types.h>
 
 // !!! 不是int
-static off_t flen(char *fname)
+static off_t flen(char* fname)
 {
     struct stat statres;
 
@@ -26,7 +26,7 @@ static off_t flen(char *fname)
  * @param    argv
  * @return  int
  */
-int main(int argc, char **argv)
+int main(int argc, char** argv)
 {
     if (argc < 2)
     {

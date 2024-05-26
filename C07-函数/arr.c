@@ -1,20 +1,21 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void print_arr(int *p, int size)
+void print_arr(int* p, int size)
 {
     int i;
     printf("%s:%d\n", __FUNCTION__, sizeof(p));
     // out: 8 指针
 
-    for (i = 0; i < size; i++) printf("%d ", *(p + i));
+    for (i = 0; i < size; i++)
+        printf("%d ", *(p + i));
     printf("\n");
 }
 
 
-void func(int *p, int size)
+void func(int* p, int size)
 {
-    int *tmp;
+    int* tmp;
 
     for (int i = 0; i < size / 2; i++)
     {
@@ -24,7 +25,7 @@ void func(int *p, int size)
     }
 }
 
-int main()
+int main( )
 {
     int a[] = {1, 3, 5, 7, 9};
 

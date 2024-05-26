@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main()
+int main( )
 {
     int ch;
-    ch = getchar();
+    ch = getchar( );
     putchar(ch);
 
     exit(0);

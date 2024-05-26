@@ -7,9 +7,9 @@
 
 #define PATHSIZE 1024
 
-static int path_noloop(const char *path)
+static int path_noloop(const char* path)
 {
-    char *pos;
+    char* pos;
 
     /**
      * @brief    strrchr
@@ -27,7 +27,7 @@ static int path_noloop(const char *path)
     return 1;
 }
 
-static int64_t mydu(const char *path)
+static int64_t mydu(const char* path)
 {
     // 优化递归
     // 将部分与递归无关的变量拿出栈，用 static 修饰
@@ -111,7 +111,7 @@ static int64_t mydu(const char *path)
  *
  * @return  int
  */
-int main(int argc, char **argv)
+int main(int argc, char** argv)
 {
     if (argc < 2)
     {

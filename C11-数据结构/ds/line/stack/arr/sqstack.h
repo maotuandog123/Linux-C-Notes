@@ -11,20 +11,20 @@ typedef struct node_st
     int      top;
 } sqstack;
 
-sqstack *st_create(void);
+sqstack* st_create(void);
 
-int st_isempty(sqstack *);
+int st_isempty(sqstack*);
 
-int st_push(sqstack *, datatype *);
+int st_push(sqstack*, datatype*);
 
 /* 取出栈顶元素 */
-int st_pop(sqstack *, datatype *);
+int st_pop(sqstack*, datatype*);
 
 /* 查看栈顶元素 */
-int st_top(sqstack *, datatype *);
+int st_top(sqstack*, datatype*);
 
-void st_travel(sqstack *);
+void st_travel(sqstack*);
 
-void st_destroy(sqstack *);
+void st_destroy(sqstack*);
 
 #endif

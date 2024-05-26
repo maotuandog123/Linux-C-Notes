@@ -12,7 +12,7 @@ struct node_st
 };
 
 
-struct node_st *tree = NULL;
+struct node_st* tree = NULL;
 
 /**
  * @brief    插入节点
@@ -27,9 +27,9 @@ struct node_st *tree = NULL;
  * @param    data
  * @return  int
  */
-static int insert(struct node_st **root, int data)
+static int insert(struct node_st** root, int data)
 {
-    struct node_st *node;
+    struct node_st* node;
 
     if (NULL == *root)
     {
@@ -51,7 +51,7 @@ static int insert(struct node_st **root, int data)
 }
 
 
-static void draw_(struct node_st *root, int level)
+static void draw_(struct node_st* root, int level)
 {
     if (NULL == root)
         return;
@@ -73,7 +73,7 @@ static void draw_(struct node_st *root, int level)
  *D
  * @param    root
  */
-static void draw(struct node_st *root)
+static void draw(struct node_st* root)
 {
     draw_(root, 0);
 
@@ -81,7 +81,7 @@ static void draw(struct node_st *root)
 }
 
 
-static int save_(struct node_st *root, FILE *fp)
+static int save_(struct node_st* root, FILE* fp)
 {
     fputc('(', fp);
     /* if error */
@@ -102,9 +102,9 @@ static int save_(struct node_st *root, FILE *fp)
     /* if error */
 }
 
-static int save(struct node_st *root, const char *path)
+static int save(struct node_st* root, const char* path)
 {
-    FILE *fp;
+    FILE* fp;
     fp = fopen(path, "w");
     if (NULL == fp)
         return -1;
@@ -118,11 +118,11 @@ static int save(struct node_st *root, const char *path)
     return 0;
 }
 
-int main()
+int main( )
 {
     char             arr[] = "cefadjbh";
     int              i;
-    struct score_st *datap;
+    struct score_st* datap;
 
     for (i = 0; i < sizeof(arr) / sizeof(*arr) - 1; i++)
     {

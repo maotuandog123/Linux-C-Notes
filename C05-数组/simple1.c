@@ -3,7 +3,7 @@
 
 #define M 3
 
-int main()
+int main( )
 {
     // int arr[M] = {1};
     // static int arr[M];

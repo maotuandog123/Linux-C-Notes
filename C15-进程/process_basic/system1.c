@@ -12,13 +12,13 @@
  * @param    argv
  * @return  int
  */
-int main(int argc, char **argv)
+int main(int argc, char** argv)
 {
     pid_t pid;
 
     fflush(NULL);
 
-    pid = fork();
+    pid = fork( );
     if (pid < 0)
     {
         perror("fork()");

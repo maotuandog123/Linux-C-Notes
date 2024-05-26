@@ -14,7 +14,7 @@
  * @param    argv
  * @return  int
  */
-int main(int argc, char **argv)
+int main(int argc, char** argv)
 {
     int   i, j, mark;
     pid_t pid;
@@ -22,7 +22,7 @@ int main(int argc, char **argv)
     for (i = LEFT; i <= RIGHT; i++)
     {
 
-        pid = fork();
+        pid = fork( );
         if (pid < 0)
         {
             perror("fork()");

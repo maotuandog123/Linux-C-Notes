@@ -22,7 +22,7 @@ static void fibonacci(void)
 
     while (i < j)
     {
-        tmp = fib[i];
+        tmp    = fib[i];
         fib[i] = fib[j];
         fib[j] = tmp;
 
@@ -54,8 +54,8 @@ static void sort1(void)
         {
             if (a[j] > a[j + 1])
             {
-                tmp = a[j];
-                a[j] = a[j + 1];
+                tmp      = a[j];
+                a[j]     = a[j + 1];
                 a[j + 1] = tmp;
             }
         }
@@ -89,7 +89,7 @@ static void sort2(void)
         }
         if (i != k)
         {
-            tmp = a[i];
+            tmp  = a[i];
             a[i] = a[k];
             a[k] = tmp;
         }
@@ -116,7 +116,7 @@ static void base_convert(void)
     do
     {
         n[i] = num % base;
-        num = num / base;
+        num  = num / base;
         i++;
     } while (num != 0);
 
@@ -133,7 +133,7 @@ static void base_convert(void)
 static void primer(void)
 {
     char primer[1001] = {0};
-    int i, j;
+    int  i, j;
 
     for (i = 2; i < 1001; i++)
     {
@@ -148,7 +148,7 @@ static void primer(void)
     }
 }
 
-int main()
+int main( )
 {
     // fibonacci();
 
@@ -158,7 +158,7 @@ int main()
 
     // base_convert();
 
-    primer();
+    primer( );
 
     exit(0);
 }

@@ -6,7 +6,7 @@
 // !!! 课程不完整，程序未写完
 // TODO: snum和sop需要不同的datatype
 
-static void compute(sqstack *snum, int *op)
+static void compute(sqstack* snum, int* op)
 {
     datatype n1, n2, n;
 
@@ -25,7 +25,7 @@ static void compute(sqstack *snum, int *op)
     st_push(snum, &n);
 }
 
-static deal_bracket(sqstack *snum, sqstack *sop)
+static deal_bracket(sqstack* snum, sqstack* sop)
 {
     datatype old_op;
 
@@ -54,7 +54,7 @@ static int get_pri(int op)
 }
 
 
-static void deal_op(sqstack *snum, sqstack *sop, char op)
+static void deal_op(sqstack* snum, sqstack* sop, char op)
 {
     datatype old_op;
 
@@ -85,7 +85,7 @@ static void deal_op(sqstack *snum, sqstack *sop, char op)
 }
 
 
-int main()
+int main( )
 {
     int      i;
     char     str[] = "(11+3)*2-5";
@@ -94,11 +94,11 @@ int main()
     int      flag  = 0;
     int      old_op;
 
-    snum = st_create();
+    snum = st_create( );
     if (NULL == snum)
         exit(1);
 
-    sop = st_create();
+    sop = st_create( );
     if (NULL == sop)
         exit(1);
 

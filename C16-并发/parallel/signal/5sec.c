@@ -9,7 +9,7 @@
  * @param    argv
  * @return  int
  ***********************************************************************/
-int main(int argc, char **argv)
+int main(int argc, char** argv)
 {
     time_t    end;
     long long count = 0;

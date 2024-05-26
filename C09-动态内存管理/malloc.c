@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main()
+int main( )
 {
-    int *p = NULL;
+    int* p = NULL;
 
     p = malloc(sizeof(int));
     if (NULL == p)

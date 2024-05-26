@@ -12,13 +12,13 @@
 // 但是这时候运行输入hello，不会报错
 // 实际上是越界了
 
-int main()
+int main( )
 {
-    int i;
+    int   i;
     float f;
-    char str[STRSIZE];
-    int ret;
-    char ch;
+    char  str[STRSIZE];
+    int   ret;
+    char  ch;
 
     printf("Please enter:\n");
 

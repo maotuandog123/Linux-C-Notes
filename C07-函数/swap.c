@@ -18,7 +18,7 @@ int print_value(int a, int b)
 //     j   = tmp;
 // }
 
-void swap(int *p, int *q)
+void swap(int* p, int* q)
 {
     int tmp;
 
@@ -26,7 +26,7 @@ void swap(int *p, int *q)
     *p  = *q;
     *q  = tmp;
 }
-int main()
+int main( )
 {
     int i = 3, j = 5;
 

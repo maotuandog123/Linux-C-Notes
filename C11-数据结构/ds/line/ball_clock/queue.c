@@ -4,9 +4,9 @@
 #include "queue.h"
 
 
-queue *qu_create()
+queue* qu_create( )
 {
-    queue *sq;
+    queue* sq;
 
     sq = malloc(sizeof(*sq));
     if (NULL == sq)
@@ -18,12 +18,12 @@ queue *qu_create()
     return sq;
 }
 
-int qu_isempty(queue *sq)
+int qu_isempty(queue* sq)
 {
     return (sq->head == sq->tail);
 }
 
-int qu_enqueue(queue *sq, datatype *x)
+int qu_enqueue(queue* sq, datatype* x)
 {
     if ((sq->tail + 1) % MAXSIZE == sq->head)
         return -1;
@@ -34,7 +34,7 @@ int qu_enqueue(queue *sq, datatype *x)
     return 0;
 }
 
-int qu_dequeue(queue *sq, datatype *x)
+int qu_dequeue(queue* sq, datatype* x)
 {
     if (qu_isempty(sq))
         return -1;
@@ -45,7 +45,7 @@ int qu_dequeue(queue *sq, datatype *x)
     return 0;
 }
 
-void qu_travel(queue *sq)
+void qu_travel(queue* sq)
 {
     if (sq->head == sq->tail)
         return;
@@ -61,12 +61,12 @@ void qu_travel(queue *sq)
     printf("%d \n", sq->data[i]);
 }
 
-void qu_clear(queue *sq)
+void qu_clear(queue* sq)
 {
     sq->head = sq->tail;
 }
 
-void qu_destroy(queue *sq)
+void qu_destroy(queue* sq)
 {
     free(sq);
 }

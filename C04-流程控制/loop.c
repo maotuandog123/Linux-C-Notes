@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define LEFT 1
+#define LEFT  1
 #define RIGHT 100
 
-int main()
+int main( )
 {
     int i;
     int sum = 0;

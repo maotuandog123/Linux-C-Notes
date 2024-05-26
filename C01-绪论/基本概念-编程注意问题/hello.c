@@ -2,9 +2,9 @@
 
 int main(void)
 {
-    int *p = NULL;
-    int i;
-    p = (int *)malloc(sizeof(int));
+    int* p = NULL;
+    int  i;
+    p = (int*)malloc(sizeof(int));
     if (p == NULL)
         return -1;
     printf("Hello world!\n");

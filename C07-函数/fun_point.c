@@ -11,7 +11,7 @@ int sub(int a, int b)
     return a - b;
 }
 
-int main()
+int main( )
 {
     int a = 3, b = 5;
     int ret;

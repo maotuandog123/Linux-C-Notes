@@ -3,13 +3,13 @@
 
 #include "queue.h"
 
-int main()
+int main( )
 {
-    queue   *sq;
+    queue*   sq;
     datatype arr[] = {2, 34, 89, 12};
     int      i;
 
-    sq = qu_create();
+    sq = qu_create( );
     if (NULL == sq)
         exit(1);
 

@@ -11,7 +11,7 @@
  * time ./mycpy /etc/services /tmp/out
  */
 
-int main(int argc, char **argv)
+int main(int argc, char** argv)
 {
     int  sfd, dfd;
     char buf[BUFSIZE];

@@ -5,10 +5,10 @@
 
 int i = 10;
 
-int main()
+int main( )
 {
     printf("[%s]i=%d\n", __FUNCTION__, i);
-    func();
+    func( );
 
     exit(0);
 }

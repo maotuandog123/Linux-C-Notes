@@ -14,13 +14,13 @@
 #define BURST   100   //!! token上限
 
 
-int main(int argc, char **argv)
+int main(int argc, char** argv)
 {
     int      sfd, dfd = 1;
     char     buf[BUFSIZE];
     int      len, ret, pos;
     int      size;
-    mytbf_t *tbf;
+    mytbf_t* tbf;
 
     if (argc < 2)
     {

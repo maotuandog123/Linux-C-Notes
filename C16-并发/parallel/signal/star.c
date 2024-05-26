@@ -7,7 +7,7 @@ static void int_hander(int s)
     write(1, "!", 1);
 }
 
-int main(int argc, char **argv)
+int main(int argc, char** argv)
 {
     int i;
 

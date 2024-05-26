@@ -14,33 +14,33 @@ struct score_st
     int  chinese;
 };
 
-void print_s(const void *record)
+void print_s(const void* record)
 {
-    const struct score_st *r = record;
+    const struct score_st* r = record;
 
     printf("%d %s %d %d\n", r->id, r->name, r->math, r->chinese);
 }
 
-int id_cmp(const void *key, const void *record)
+int id_cmp(const void* key, const void* record)
 {
-    const int             *k = key;
-    const struct score_st *r = record;
+    const int*             k = key;
+    const struct score_st* r = record;
 
     return (*k - r->id);
 }
 
-int name_cmp(const void *key, const void *record)
+int name_cmp(const void* key, const void* record)
 {
-    const char            *k = key;
-    const struct score_st *r = record;
+    const char*            k = key;
+    const struct score_st* r = record;
 
     return strcmp(k, r->name);
 }
 
 
-int main()
+int main( )
 {
-    LLIST          *handler;
+    LLIST*          handler;
     int             i, ret;
     struct score_st tmp;
 
@@ -52,8 +52,8 @@ int main()
     {
         tmp.id = i;
         snprintf(tmp.name, NAMESIZE, "std%d", i);
-        tmp.math    = rand() % 100;
-        tmp.chinese = rand() % 100;
+        tmp.math    = rand( ) % 100;
+        tmp.chinese = rand( ) % 100;
 
         ret = llist_insert(handler, &tmp, LLIST_FORWARD);
         if (ret)
@@ -65,7 +65,7 @@ int main()
     printf("\n\n");
 
     // int id = 3;
-    char *del_name = "std6";
+    char* del_name = "std6";
 
     // ret = llist_delete(handler, &id, id_cmp);
     ret = llist_delete(handler, del_name, name_cmp);

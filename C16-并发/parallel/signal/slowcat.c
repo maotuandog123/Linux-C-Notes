@@ -24,7 +24,7 @@ static void alrm_handler(int s)
  * @param    argv
  * @return   int
  ***********************************************************************/
-int main(int argc, char **argv)
+int main(int argc, char** argv)
 {
     int              sfd, dfd = 1;
     char             buf[BUFSIZE];
@@ -67,7 +67,7 @@ int main(int argc, char **argv)
     while (1)
     {
         while (!loop)
-            pause();   //!
+            pause( );   //!
         loop = 0;
 
         while ((len = read(sfd, buf, BUFSIZE)) < 0)

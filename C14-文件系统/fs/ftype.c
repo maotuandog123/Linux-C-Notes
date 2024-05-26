@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <sys/stat.h>
 
-static int ftype(const char *fname)
+static int ftype(const char* fname)
 {
     struct stat statres;
 
@@ -40,7 +40,7 @@ static int ftype(const char *fname)
  *
  * @return  int
  */
-int main(int argc, char **argv)
+int main(int argc, char** argv)
 {
     if (argc < 2)
     {

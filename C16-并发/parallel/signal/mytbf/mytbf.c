@@ -25,12 +25,12 @@ struct mytbf_st
     int pos;
 };
 
-static struct mytbf_st *job[MYTBF_MAX];
+static struct mytbf_st* job[MYTBF_MAX];
 static int              inited = 0;
 static __sighandler_t   alrm_handler_save;   //!!! 保存原来的alarm行为
 
 
-static int get_free_pos()
+static int get_free_pos( )
 {
     int i;
 
@@ -60,7 +60,7 @@ static void alrm_handler(int s)
     }
 }
 
-static void module_unload()
+static void module_unload( )
 {
     int i;
 
@@ -70,7 +70,7 @@ static void module_unload()
         free(job[i]);
 }
 
-static void module_load()
+static void module_load( )
 {
     alrm_handler_save = signal(SIGALRM, alrm_handler);
     alarm(1);
@@ -78,18 +78,18 @@ static void module_load()
     atexit(module_unload);   //!!! atexit()
 }
 
-mytbf_t *mytbf_init(int cps, int burst)
+mytbf_t* mytbf_init(int cps, int burst)
 {
-    struct mytbf_st *me;
+    struct mytbf_st* me;
     int              pos;
 
     if (!inited)
     {
-        module_load();
+        module_load( );
         inited = 1;
     }
 
-    pos = get_free_pos();
+    pos = get_free_pos( );
     if (pos < 0)
         return NULL;
 
@@ -112,16 +112,16 @@ static int min(int a, int b)
     return a < b ? a : b;
 }
 
-int mytbf_fetchtoken(mytbf_t *ptr, int size)
+int mytbf_fetchtoken(mytbf_t* ptr, int size)
 {
     if (size <= 0)
         return -EINVAL;
 
-    struct mytbf_st *me = ptr;
+    struct mytbf_st* me = ptr;
     int              n;
 
     while (me->token <= 0)
-        pause();
+        pause( );
 
     n = min(size, me->token);
 
@@ -130,12 +130,12 @@ int mytbf_fetchtoken(mytbf_t *ptr, int size)
     return n;
 }
 
-int mytbf_returntoken(mytbf_t *ptr, int size)
+int mytbf_returntoken(mytbf_t* ptr, int size)
 {
     if (size <= 0)
         return -EINVAL;
 
-    struct mytbf_st *me = ptr;
+    struct mytbf_st* me = ptr;
 
     me->token += size;
     if (me->token > me->burst)
@@ -144,9 +144,9 @@ int mytbf_returntoken(mytbf_t *ptr, int size)
     return size;
 }
 
-int mytbf_destroy(mytbf_t *ptr)
+int mytbf_destroy(mytbf_t* ptr)
 {
-    struct mytbf_st *me = ptr;
+    struct mytbf_st* me = ptr;
 
     job[me->pos] = NULL;
 

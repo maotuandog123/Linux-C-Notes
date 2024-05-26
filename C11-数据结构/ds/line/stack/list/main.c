@@ -13,16 +13,16 @@ struct score_st
     int  chinese;
 };
 
-static int print_s(void *record)
+static int print_s(void* record)
 {
-    struct score_st *r = record;
+    struct score_st* r = record;
 
     printf("%d %s %d %d\n", r->id, r->name, r->math, r->chinese);
 }
 
-int main()
+int main( )
 {
-    STACK          *st;
+    STACK*          st;
     struct score_st tmp;
     int             i, ret;
 
@@ -34,8 +34,8 @@ int main()
     {
         tmp.id = i;
         snprintf(tmp.name, NAMESIZE, "stu%d", i);
-        tmp.math    = rand() % 100;
-        tmp.chinese = rand() % 100;
+        tmp.math    = rand( ) % 100;
+        tmp.chinese = rand( ) % 100;
 
         if (stack_push(st, &tmp))
             exit(1);

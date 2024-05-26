@@ -22,7 +22,7 @@
  * @return  int 读到的一行数据的数据个数( n>=0 )
  *              -1: 读到文件尾部或者出错
  */
-static int read_line(int fd, unsigned char *buf)
+static int read_line(int fd, unsigned char* buf)
 {
     unsigned char c;
     int           len;
@@ -70,7 +70,7 @@ static int read_line(int fd, unsigned char *buf)
  *
  * @return  int
  */
-static void process_data(unsigned char *data_buf, unsigned char *result_buf)
+static void process_data(unsigned char* data_buf, unsigned char* result_buf)
 {
     /**
      *   eg1: data_buf=",语文,数学,英语,总分,评价"
@@ -84,7 +84,7 @@ static void process_data(unsigned char *data_buf, unsigned char *result_buf)
     char  name[100];
     int   scores[3];
     int   sum;
-    char *levels[] = {"A+", "A", "B"};
+    char* levels[] = {"A+", "A", "B"};
     int   level;
 
     // debug("data_buf[0]: %x\n", data_buf[0]);
@@ -146,7 +146,7 @@ static void process_data(unsigned char *data_buf, unsigned char *result_buf)
  *
  * @return  int
  */
-int main(int argc, char **argv)
+int main(int argc, char** argv)
 {
     int           fd_data, fd_result;
     int           len;

@@ -22,7 +22,7 @@ int dist(int a, int b, int c)
     return max(a, b, c) - min(a, b, c);
 }
 
-int main()
+int main( )
 {
     int a = 3, b = 5, c = 10;
 

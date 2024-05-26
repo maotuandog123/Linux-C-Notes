@@ -21,9 +21,9 @@ struct node_st *list_insert(struct node_st *list, struct score_st *data)
 }
 #endif
 
-int list_insert(struct node_st **list, struct score_st *data)
+int list_insert(struct node_st** list, struct score_st* data)
 {
-    struct node_st *new;
+    struct node_st* new;
 
     new = malloc(sizeof(*new));
     if (NULL == new)
@@ -36,9 +36,9 @@ int list_insert(struct node_st **list, struct score_st *data)
     return 0;
 }
 
-void list_show(struct node_st *list)
+void list_show(struct node_st* list)
 {
-    struct node_st *cur;
+    struct node_st* cur;
 
     for (cur = list; NULL != cur; cur = cur->next)
     {
@@ -51,9 +51,9 @@ void list_show(struct node_st *list)
 }
 
 // 删除首位
-int list_delete(struct node_st **list)
+int list_delete(struct node_st** list)
 {
-    struct node_st *cur;
+    struct node_st* cur;
 
     if (NULL == *list)
         return -1;
@@ -66,9 +66,9 @@ int list_delete(struct node_st **list)
     return 0;
 }
 
-struct score_st *list_find(struct node_st **list, int id)
+struct score_st* list_find(struct node_st** list, int id)
 {
-    struct node_st *cur;
+    struct node_st* cur;
 
     if (NULL == *list)
         return NULL;
@@ -91,9 +91,9 @@ struct score_st *list_find(struct node_st **list, int id)
     return NULL;
 }
 
-int list_destroy(struct node_st **list)
+int list_destroy(struct node_st** list)
 {
-    struct node_st *cur;
+    struct node_st* cur;
 
     if (NULL == list)
         return -1;

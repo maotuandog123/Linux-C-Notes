@@ -4,7 +4,7 @@
 // #define N 10
 #define N 32
 
-int main()
+int main( )
 {
 
     // char str[N] = {'a', 'b', 'c'};

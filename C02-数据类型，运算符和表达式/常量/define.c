@@ -1,11 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define PI 3.14
-#define ADD 2 + 3
+#define PI   3.14
+#define ADD  2 + 3
 #define ADD1 (2 + 3)
 
-#define MAX(a, b) (a > b ? a : b)
+#define MAX(a, b)  (a > b ? a : b)
 #define MAX1(a, b) ((a) > (b) ? (a) : (b))
 
 #define MAX2(a, b)               \
@@ -25,7 +25,7 @@ int max(int a, int b)
     return a > b ? a : b;
 }
 
-int main()
+int main( )
 {
     // printf("%d\n", ADD * ADD);
     // 相当于 2+3*2+3

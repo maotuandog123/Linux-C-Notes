@@ -2,10 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-int main()
+int main( )
 {
 
-    char *str = "hello";
+    char* str = "hello";
 
     printf("%d %d\n", sizeof(str), strlen(str));
     // out: 8 5
