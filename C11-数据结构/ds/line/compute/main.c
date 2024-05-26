@@ -25,7 +25,7 @@ static void compute(sqstack *snum, int *op)
     st_push(snum, &n);
 }
 
-static deal_bracket(sqstack *snum, sqstack *sop)
+static void deal_bracket(sqstack *snum, sqstack *sop)
 {
     datatype old_op;
 
@@ -50,6 +50,7 @@ static int get_pri(int op)
     case '-': return 1;
     case '*':
     case '/': return 2;
+    default: return -1;
     }
 }
 
@@ -60,7 +61,7 @@ static void deal_op(sqstack *snum, sqstack *sop, char op)
 
     if (st_isempty(sop) || op == '(')
     {
-        st_push(sop, &op);
+        st_push(sop, (datatype *)&op);
         return;
     }
 
@@ -68,7 +69,7 @@ static void deal_op(sqstack *snum, sqstack *sop, char op)
 
     if (get_pri(op) > get_pri(old_op))
     {
-        st_push(sop, &op);
+        st_push(sop, (datatype *)&op);
         return;
     }
 
@@ -81,7 +82,7 @@ static void deal_op(sqstack *snum, sqstack *sop, char op)
 
         st_top(sop, &old_op);
     }
-    st_push(sop, &op);
+    st_push(sop, (datatype *)&op);
 }
 
 

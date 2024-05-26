@@ -128,4 +128,6 @@ int sqlist_union(sqlist *list1, sqlist *list2)
             sqlist_insert(list1, 0, &list2->data[i]);
         }
     }
+
+    return 0;
 }
