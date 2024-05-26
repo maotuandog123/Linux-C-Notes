@@ -23,7 +23,7 @@ int main( )
     int i = 1;
     int j = 100;
 
-    const int* const p = &i;
+    const int *const p = &i;
 
     //(F) p = &j;
 

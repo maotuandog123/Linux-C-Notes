@@ -29,9 +29,9 @@ static void prompt(void)
  * @param    line
  * @param    res
  */
-static void parse(char* line, struct cmd_st* res)
+static void parse(char *line, struct cmd_st *res)
 {
-    char* tok;
+    char *tok;
     int   i = 0;
 
     //* 根据分隔符分割小串
@@ -52,9 +52,9 @@ static void parse(char* line, struct cmd_st* res)
     }
 }
 
-int main(int argc, char** argv)
+int main(int argc, char **argv)
 {
-    char*         linebuf      = NULL;
+    char         *linebuf      = NULL;
     size_t        linebuf_size = 0;
     struct cmd_st cmd;
     pid_t         pid;

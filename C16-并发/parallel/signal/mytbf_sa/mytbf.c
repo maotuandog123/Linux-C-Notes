@@ -28,7 +28,7 @@ struct mytbf_st
     int pos;
 };
 
-static struct mytbf_st* job[MYTBF_MAX];
+static struct mytbf_st *job[MYTBF_MAX];
 static int              inited = 0;
 static struct sigaction sa, alrm_sa_save;
 
@@ -46,7 +46,7 @@ static int get_free_pos( )
     return -1;
 }
 
-static void alrm_action(int s, siginfo_t* infop, void* unused)
+static void alrm_action(int s, siginfo_t *infop, void *unused)
 {
     int i;
 
@@ -124,9 +124,9 @@ static void module_load( )
     atexit(module_unload);   //!!! atexit()
 }
 
-mytbf_t* mytbf_init(int cps, int burst)
+mytbf_t *mytbf_init(int cps, int burst)
 {
-    struct mytbf_st* me;
+    struct mytbf_st *me;
     int              pos;
 
     if (!inited)
@@ -158,12 +158,12 @@ static int min(int a, int b)
     return a < b ? a : b;
 }
 
-int mytbf_fetchtoken(mytbf_t* ptr, int size)
+int mytbf_fetchtoken(mytbf_t *ptr, int size)
 {
     if (size <= 0)
         return -EINVAL;
 
-    struct mytbf_st* me = ptr;
+    struct mytbf_st *me = ptr;
     int              n;
 
     while (me->token <= 0)
@@ -176,12 +176,12 @@ int mytbf_fetchtoken(mytbf_t* ptr, int size)
     return n;
 }
 
-int mytbf_returntoken(mytbf_t* ptr, int size)
+int mytbf_returntoken(mytbf_t *ptr, int size)
 {
     if (size <= 0)
         return -EINVAL;
 
-    struct mytbf_st* me = ptr;
+    struct mytbf_st *me = ptr;
 
     me->token += size;
     if (me->token > me->burst)
@@ -190,9 +190,9 @@ int mytbf_returntoken(mytbf_t* ptr, int size)
     return size;
 }
 
-int mytbf_destroy(mytbf_t* ptr)
+int mytbf_destroy(mytbf_t *ptr)
 {
-    struct mytbf_st* me = ptr;
+    struct mytbf_st *me = ptr;
 
     job[me->pos] = NULL;
 

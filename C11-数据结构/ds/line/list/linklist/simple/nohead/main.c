@@ -6,7 +6,7 @@
 int main( )
 {
     int             i, ret;
-    struct node_st* list = NULL;
+    struct node_st *list = NULL;
     struct score_st tmp;
 
     for (i = 0; i < 7; i++)
@@ -28,7 +28,7 @@ int main( )
     printf("\n\n");
 
     int              id = 13;
-    struct score_st* ptr;
+    struct score_st *ptr;
     ptr = list_find(&list, id);
     if (NULL == ptr)
         printf("Can not find!\n");

@@ -7,12 +7,12 @@ int main( )
 {
     int i = 1;
 
-    int* p = &i;
+    int *p = &i;
     // 相当于
     // int *p;
     // p = &i;
 
-    int** q = &p;
+    int **q = &p;
 
     printf("i = %d\n", i);
     printf("&i = %d\n", &i);

@@ -14,10 +14,10 @@
  *
  * @return  int
  */
-int main(int argc, char** argv)
+int main(int argc, char **argv)
 {
-    DIR*           dp;
-    struct dirent* cur;
+    DIR           *dp;
+    struct dirent *cur;
 
     dp = opendir(PAT);
     if (NULL == dp)

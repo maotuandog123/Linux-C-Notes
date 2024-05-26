@@ -4,17 +4,17 @@
 #include <string.h>
 #include <unistd.h>
 
-static void f1(void* p)
+static void f1(void *p)
 {
-    printf("f1():%s\n", (char*)p);
+    printf("f1():%s\n", (char *)p);
 }
 
-static void f2(void* p)
+static void f2(void *p)
 {
-    printf("f1():%s\n", (char*)p);
+    printf("f1():%s\n", (char *)p);
 }
 
-int main(int argc, char** argv)
+int main(int argc, char **argv)
 {
     int job1;
 

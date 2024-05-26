@@ -16,11 +16,11 @@
  *
  * @return  int
  */
-int main(int argc, char** argv)
+int main(int argc, char **argv)
 {
-    FILE*      fp;
+    FILE      *fp;
     time_t     stamp;
-    struct tm* tm;
+    struct tm *tm;
     char       buf[BUFSIZE];
     int        count = 0;
 

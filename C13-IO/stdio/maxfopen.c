@@ -5,7 +5,7 @@
 
 int main( )
 {
-    FILE* fp    = NULL;
+    FILE *fp    = NULL;
     int   count = 0;
 
 

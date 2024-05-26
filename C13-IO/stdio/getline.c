@@ -2,10 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-int main(int argc, char** argv)
+int main(int argc, char **argv)
 {
-    FILE*  fp;
-    char*  linebuf;
+    FILE  *fp;
+    char  *linebuf;
     size_t linesize;
 
     if (argc < 2)

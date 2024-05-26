@@ -2,9 +2,9 @@
 #include <stdlib.h>
 
 
-char* mystrcpy(char* dest, const char* src)
+char *mystrcpy(char *dest, const char *src)
 {
-    char* ret = dest;
+    char *ret = dest;
     if (NULL != dest && NULL != src)
         while ((*dest++ = *src++) != '\0')
             ;
@@ -12,7 +12,7 @@ char* mystrcpy(char* dest, const char* src)
     return ret;
 }
 
-char* mystrncpy(char* dest, const char* src, size_t n)
+char *mystrncpy(char *dest, const char *src, size_t n)
 {
     int i;
     for (i = 0; i < n && (dest[i] = src[i]); i++)

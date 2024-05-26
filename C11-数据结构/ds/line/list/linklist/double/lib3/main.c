@@ -14,25 +14,25 @@ struct score_st
     int  chinese;
 };
 
-void print_s(const void* record)
+void print_s(const void *record)
 {
-    const struct score_st* r = record;
+    const struct score_st *r = record;
 
     printf("%d %s %d %d\n", r->id, r->name, r->math, r->chinese);
 }
 
-int id_cmp(const void* key, const void* record)
+int id_cmp(const void *key, const void *record)
 {
-    const int*             k = key;
-    const struct score_st* r = record;
+    const int             *k = key;
+    const struct score_st *r = record;
 
     return (*k - r->id);
 }
 
-int name_cmp(const void* key, const void* record)
+int name_cmp(const void *key, const void *record)
 {
-    const char*            k = key;
-    const struct score_st* r = record;
+    const char            *k = key;
+    const struct score_st *r = record;
 
     return strcmp(k, r->name);
 }
@@ -40,7 +40,7 @@ int name_cmp(const void* key, const void* record)
 
 int main( )
 {
-    LLIST*          handler;
+    LLIST          *handler;
     int             i, ret;
     struct score_st tmp;
 

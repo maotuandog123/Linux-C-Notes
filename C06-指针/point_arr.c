@@ -5,10 +5,10 @@
 
 int main( )
 {
-    char* name[5] = {"Follow me", "Basic", "Great", "Fortran", "Computer"};
+    char *name[5] = {"Follow me", "Basic", "Great", "Fortran", "Computer"};
     // 指针数组
     int   i, j, k;
-    char* tmp;
+    char *tmp;
 
     for (i = 0; i < 5 - 1; i++)
     {

@@ -4,7 +4,7 @@
 #define M 3
 #define N 4
 
-void print_douarr(int* p, int n)
+void print_douarr(int *p, int n)
 {
     int i, j;
 
@@ -33,7 +33,7 @@ void print_douarr1(int (*p)[N], int m, int n)
     }
 }
 
-float average_score(int* p, int n)
+float average_score(int *p, int n)
 {
     float sum = 0;
 
@@ -57,7 +57,7 @@ void find_num(int (*p)[N], int num)
 }
 #endif
 
-int* find_num(int (*p)[N], int num)
+int *find_num(int (*p)[N], int num)
 {
     if (num > M - 1)
         return NULL;
@@ -76,7 +76,7 @@ int main( )
 
     // find_num(a, 2);
 
-    int* res;
+    int *res;
 
     res = find_num(a, 2);
     if (NULL != res)

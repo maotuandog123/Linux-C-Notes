@@ -23,7 +23,7 @@ static int errfunc_(const char *errpath, int eerrno)
  *
  * @return  int
  */
-int main(int argc, char** argv)
+int main(int argc, char **argv)
 {
     glob_t globres;
     int    err;

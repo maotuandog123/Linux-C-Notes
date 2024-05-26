@@ -40,7 +40,7 @@ struct student_st
 };
 
 
-void func(struct simp_st* b)
+void func(struct simp_st *b)
 {
     printf("%d\n", sizeof(b));
 }
@@ -51,7 +51,7 @@ int main( )
 
 
     struct simp_st  a;
-    struct simp_st* p = &a;
+    struct simp_st *p = &a;
 
     // func(a);
 

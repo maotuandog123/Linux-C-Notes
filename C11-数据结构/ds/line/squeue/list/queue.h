@@ -5,12 +5,12 @@
 
 typedef LLIST QUEUE;
 
-QUEUE* queue_create(int);
+QUEUE *queue_create(int);
 
-int queue_en(QUEUE*, const void*);
+int queue_en(QUEUE *, const void *);
 
-int queue_de(QUEUE*, void*);
+int queue_de(QUEUE *, void *);
 
-void queue_destroy(QUEUE*);
+void queue_destroy(QUEUE *);
 
 #endif

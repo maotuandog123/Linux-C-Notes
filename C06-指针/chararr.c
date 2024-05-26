@@ -5,7 +5,7 @@
 int main( )
 {
 
-    char* str = "hello";
+    char *str = "hello";
 
     printf("%d %d\n", sizeof(str), strlen(str));
     // out: 8 5

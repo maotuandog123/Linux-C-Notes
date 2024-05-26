@@ -11,7 +11,7 @@
  * @return  int
  */
 
-int main(int argc, char** argv)
+int main(int argc, char **argv)
 {
     FILE *fps, *fpd;
     char  buf[BUFSIZE];

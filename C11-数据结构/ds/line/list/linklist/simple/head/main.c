@@ -5,7 +5,7 @@
 
 int main( )
 {
-    list*    l;
+    list    *l;
     datatype arr[] = {12, 9, 23, 2, 34, 6, 45};
 
     l = list_create( );

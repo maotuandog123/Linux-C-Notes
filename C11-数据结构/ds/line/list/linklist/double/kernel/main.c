@@ -14,7 +14,7 @@ struct score_st
     int              chinese;
 };
 
-static void print_s(struct score_st* d)
+static void print_s(struct score_st *d)
 {
     printf("%d %s %d %d \n", d->id, d->name, d->math, d->chinese);
 }
@@ -22,8 +22,8 @@ static void print_s(struct score_st* d)
 int main( )
 {
     int               i;
-    struct score_st*  datap;
-    struct list_head* cur;
+    struct score_st  *datap;
+    struct list_head *cur;
 
     LIST_HEAD(head);
 

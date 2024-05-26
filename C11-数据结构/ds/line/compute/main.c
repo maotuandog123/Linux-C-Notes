@@ -6,7 +6,7 @@
 // !!! 课程不完整，程序未写完
 // TODO: snum和sop需要不同的datatype
 
-static void compute(sqstack* snum, int* op)
+static void compute(sqstack *snum, int *op)
 {
     datatype n1, n2, n;
 
@@ -25,7 +25,7 @@ static void compute(sqstack* snum, int* op)
     st_push(snum, &n);
 }
 
-static deal_bracket(sqstack* snum, sqstack* sop)
+static deal_bracket(sqstack *snum, sqstack *sop)
 {
     datatype old_op;
 
@@ -54,7 +54,7 @@ static int get_pri(int op)
 }
 
 
-static void deal_op(sqstack* snum, sqstack* sop, char op)
+static void deal_op(sqstack *snum, sqstack *sop, char op)
 {
     datatype old_op;
 

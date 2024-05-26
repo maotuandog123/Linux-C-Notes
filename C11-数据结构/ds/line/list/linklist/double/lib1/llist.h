@@ -6,9 +6,9 @@
 
 struct llist_node_st
 {
-    void*                 data;
-    struct llist_node_st* prev;
-    struct llist_node_st* next;
+    void                 *data;
+    struct llist_node_st *prev;
+    struct llist_node_st *next;
 };
 
 typedef struct
@@ -17,21 +17,21 @@ typedef struct
     struct llist_node_st head;
 } LLIST;
 
-typedef void llist_op(const void*);
-typedef int  llist_cmp(const void*, const void*);
+typedef void llist_op(const void *);
+typedef int  llist_cmp(const void *, const void *);
 
-LLIST* llist_create(int initsize);
+LLIST *llist_create(int initsize);
 
-int llist_insert(LLIST* ptr, const void* data, int mode);
+int llist_insert(LLIST *ptr, const void *data, int mode);
 
-void* llist_find(LLIST* ptr, const void* key, llist_cmp*);
+void *llist_find(LLIST *ptr, const void *key, llist_cmp *);
 
-int llist_delete(LLIST*, const void* key, llist_cmp*);
+int llist_delete(LLIST *, const void *key, llist_cmp *);
 
-int llist_fetch(LLIST*, const void* key, llist_cmp*, void* data);
+int llist_fetch(LLIST *, const void *key, llist_cmp *, void *data);
 
-void llist_travel(LLIST* ptr, llist_op* op);
+void llist_travel(LLIST *ptr, llist_op *op);
 
-void llist_destroy(LLIST* ptr);
+void llist_destroy(LLIST *ptr);
 
 #endif

@@ -41,9 +41,9 @@ static int deamonize(void)
     return 0;
 }
 
-int main(int argc, char** argv)
+int main(int argc, char **argv)
 {
-    FILE* fp;
+    FILE *fp;
     int   i;
 
     openlog("mydaemon", LOG_PID, LOG_DAEMON);

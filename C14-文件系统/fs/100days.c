@@ -13,10 +13,10 @@
  *
  * @return  int
  */
-int main(int argc, char** argv)
+int main(int argc, char **argv)
 {
     time_t     stamp;
-    struct tm* tm;
+    struct tm *tm;
     char       timestr[TIMESTRSIZE];
 
     time(&stamp);

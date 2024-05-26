@@ -5,10 +5,10 @@ typedef struct node_st
 {
     int             coef;
     int             exp;
-    struct node_st* next;
+    struct node_st *next;
 } list;
 
-list* poly_create(int a[][2], int n)
+list *poly_create(int a[][2], int n)
 {
     list *me, *newnode, *cur;
 
@@ -36,9 +36,9 @@ list* poly_create(int a[][2], int n)
     return me;
 }
 
-void poly_show(list* me)
+void poly_show(list *me)
 {
-    list* cur;
+    list *cur;
 
     for (cur = me->next; NULL != cur; cur = cur->next)
     {
@@ -47,7 +47,7 @@ void poly_show(list* me)
     printf("\n");
 }
 
-void poly_union(list* p1, list* p2)
+void poly_union(list *p1, list *p2)
 {
     list *p, *q, *r;
 

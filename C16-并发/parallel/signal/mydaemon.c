@@ -12,7 +12,7 @@
 
 #define FNAME "/tmp/out"
 
-static FILE* fp;
+static FILE *fp;
 
 static int deamonize(void)
 {
@@ -53,7 +53,7 @@ static void daemon_exit(int s)
     exit(0);
 }
 
-int main(int argc, char** argv)
+int main(int argc, char **argv)
 {
     int              i;
     struct sigaction sa;

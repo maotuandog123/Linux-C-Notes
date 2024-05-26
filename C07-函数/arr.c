@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void print_arr(int* p, int size)
+void print_arr(int *p, int size)
 {
     int i;
     printf("%s:%d\n", __FUNCTION__, sizeof(p));
@@ -13,9 +13,9 @@ void print_arr(int* p, int size)
 }
 
 
-void func(int* p, int size)
+void func(int *p, int size)
 {
-    int* tmp;
+    int *tmp;
 
     for (int i = 0; i < size / 2; i++)
     {

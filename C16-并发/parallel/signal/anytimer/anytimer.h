@@ -2,7 +2,7 @@
 #define __ANYTIMER__H__
 
 #define JOB_MAX 1024
-typedef void at_jobfunc_t(void*);
+typedef void at_jobfunc_t(void *);
 
 /********************************************************************
  * @brief    创建定时器
@@ -16,7 +16,7 @@ typedef void at_jobfunc_t(void*);
  *       == -ENOMEM   失败，内存不足
  *       == -ENOSPC   失败，数组满
  ********************************************************************/
-int at_addjob(int sec, at_jobfunc_t* jobp, void* arg);
+int at_addjob(int sec, at_jobfunc_t *jobp, void *arg);
 
 /********************************************************************
  * @brief    取消定时器

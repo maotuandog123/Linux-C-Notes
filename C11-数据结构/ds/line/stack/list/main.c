@@ -13,16 +13,16 @@ struct score_st
     int  chinese;
 };
 
-static int print_s(void* record)
+static int print_s(void *record)
 {
-    struct score_st* r = record;
+    struct score_st *r = record;
 
     printf("%d %s %d %d\n", r->id, r->name, r->math, r->chinese);
 }
 
 int main( )
 {
-    STACK*          st;
+    STACK          *st;
     struct score_st tmp;
     int             i, ret;
 

@@ -5,7 +5,7 @@
 
 int main( )
 {
-    queue*   sq;
+    queue   *sq;
     datatype arr[] = {2, 34, 89, 12};
     int      i;
 

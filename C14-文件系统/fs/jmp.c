@@ -68,7 +68,7 @@ static void a(void)
  * @param    argv
  * @return  int
  */
-int main(int argc, char** argv)
+int main(int argc, char **argv)
 {
     printf("%s():Begin.\n", __FUNCTION__);
     printf("%s():Call a().\n", __FUNCTION__);

@@ -11,7 +11,7 @@ int main( )
 
     int  a[] = {5, 1, 7, 2, 8, 3};
     int  y;
-    int* p = &a[1];
+    int *p = &a[1];
 
     y = (*--p)++;
 

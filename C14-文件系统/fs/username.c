@@ -11,7 +11,7 @@
  *
  * @return  int
  */
-int main(int argc, char** argv)
+int main(int argc, char **argv)
 {
     if (argc < 2)
     {
@@ -19,7 +19,7 @@ int main(int argc, char** argv)
         exit(1);
     }
 
-    struct passwd* pwdline;
+    struct passwd *pwdline;
 
     pwdline = getpwuid(atoi(argv[1]));
 

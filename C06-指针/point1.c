@@ -3,7 +3,7 @@
 
 int main( )
 {
-    int* p;
+    int *p;
 
     *p = 1;
 

@@ -12,10 +12,10 @@ struct node_st
 };
 
 
-struct node_st* tree = NULL;
+struct node_st *tree = NULL;
 
 
-static void draw_(struct node_st* root, int level)
+static void draw_(struct node_st *root, int level)
 {
     if (NULL == root)
         return;
@@ -37,17 +37,17 @@ static void draw_(struct node_st* root, int level)
  *D
  * @param    root
  */
-static void draw(struct node_st* root)
+static void draw(struct node_st *root)
 {
     draw_(root, 0);
 
     printf("\n\n");
 }
 
-static struct node_st* load_(FILE* fp)
+static struct node_st *load_(FILE *fp)
 {
     int             c;
-    struct node_st* root;
+    struct node_st *root;
 
     c = fgetc(fp);
     /* if error */
@@ -78,10 +78,10 @@ static struct node_st* load_(FILE* fp)
 
 
 
-static struct node_st* load(const char* path)
+static struct node_st *load(const char *path)
 {
-    FILE*           fp;
-    struct node_st* root;
+    FILE           *fp;
+    struct node_st *root;
 
     fp = fopen(path, "r");
     if (NULL == fp)
@@ -96,7 +96,7 @@ static struct node_st* load(const char* path)
 
 int main( )
 {
-    struct node_st* root;
+    struct node_st *root;
 
     root = load(FNAME);
 

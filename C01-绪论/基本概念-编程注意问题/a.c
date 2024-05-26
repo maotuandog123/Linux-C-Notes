@@ -5,7 +5,7 @@
 
 int main( )
 {
-    FILE* fp;
+    FILE *fp;
 
     fp = fopen("tmp", "r");
     if (fp == NULL)

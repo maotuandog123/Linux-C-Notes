@@ -25,15 +25,15 @@
  *
  * @return  int
  */
-int main(int argc, char** argv)
+int main(int argc, char **argv)
 {
     time_t     stamp;
-    struct tm* tm;
+    struct tm *tm;
     char       timestr[TIMESTRSIZE];
     int        c;
     char       fmtstr[FMTSTRSIZE];
     fmtstr[0] = '\0';
-    FILE* fp  = stdout;
+    FILE *fp  = stdout;
 
     time(&stamp);
     tm = localtime(&stamp);

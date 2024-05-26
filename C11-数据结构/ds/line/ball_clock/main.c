@@ -16,7 +16,7 @@
 
 #define NR_BALL 27
 
-int check(queue* qu)
+int check(queue *qu)
 {
     int i = (qu->head + 1) % MAXSIZE;
 
@@ -33,7 +33,7 @@ int check(queue* qu)
 int main( )
 {
     int      i;
-    queue*   qu;
+    queue   *qu;
     int      t, value;
     int      time;
     sqstack *st_min, *st_fivemin, *st_hour;

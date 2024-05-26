@@ -11,7 +11,7 @@
 //     return;
 // }
 
-void* func(int* p, int n)
+void *func(int *p, int n)
 {
     p = malloc(n);
 
@@ -24,7 +24,7 @@ void* func(int* p, int n)
 int main( )
 {
     int  num = 100;
-    int* p   = NULL;
+    int *p   = NULL;
 
     // func(&p, num);
 

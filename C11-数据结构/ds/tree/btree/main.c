@@ -20,7 +20,7 @@ struct node_st
 };
 
 
-struct node_st* tree = NULL;
+struct node_st *tree = NULL;
 
 /**
  * @brief    插入节点
@@ -35,9 +35,9 @@ struct node_st* tree = NULL;
  * @param    data
  * @return  int
  */
-static int insert(struct node_st** root, struct score_st* data)
+static int insert(struct node_st **root, struct score_st *data)
 {
-    struct node_st* node;
+    struct node_st *node;
 
     if (NULL == *root)
     {
@@ -59,7 +59,7 @@ static int insert(struct node_st** root, struct score_st* data)
 }
 
 
-struct score_st* find(struct node_st* root, int id)
+struct score_st *find(struct node_st *root, int id)
 {
     if (NULL == root)
         return NULL;
@@ -72,13 +72,13 @@ struct score_st* find(struct node_st* root, int id)
     return find(root->r, id);
 }
 
-static void print_s(struct score_st* d)
+static void print_s(struct score_st *d)
 {
     printf("%d %s %d %d\n", d->id, d->name, d->math, d->chinese);
 }
 
 
-static void draw_(struct node_st* root, int level)
+static void draw_(struct node_st *root, int level)
 {
     if (NULL == root)
         return;
@@ -100,7 +100,7 @@ static void draw_(struct node_st* root, int level)
  *D
  * @param    root
  */
-static void draw(struct node_st* root)
+static void draw(struct node_st *root)
 {
     draw_(root, 0);
 
@@ -117,7 +117,7 @@ static void draw(struct node_st* root)
  * @param    root
  * @return  int
  */
-static int get_num(struct node_st* root)
+static int get_num(struct node_st *root)
 {
     if (NULL == root)
         return 0;
@@ -126,7 +126,7 @@ static int get_num(struct node_st* root)
 }
 
 
-static struct node_st* find_min(struct node_st* root)
+static struct node_st *find_min(struct node_st *root)
 {
     if (NULL == root->l)
         return root;
@@ -141,9 +141,9 @@ static struct node_st* find_min(struct node_st* root)
  *
  * @param    root
  */
-static void turn_left(struct node_st** root)
+static void turn_left(struct node_st **root)
 {
-    struct node_st* cur = *root;
+    struct node_st *cur = *root;
 
     *root  = cur->r;
     cur->r = NULL;
@@ -154,7 +154,7 @@ static void turn_left(struct node_st** root)
 }
 
 
-static struct node_st* find_max(struct node_st* root)
+static struct node_st *find_max(struct node_st *root)
 {
     if (NULL == root->r)
         return root;
@@ -169,9 +169,9 @@ static struct node_st* find_max(struct node_st* root)
  *
  * @param    root
  */
-static void turn_right(struct node_st** root)
+static void turn_right(struct node_st **root)
 {
-    struct node_st* cur = *root;
+    struct node_st *cur = *root;
 
     *root  = cur->l;
     cur->l = NULL;
@@ -189,7 +189,7 @@ static void turn_right(struct node_st** root)
  *
  * @param    root
  */
-static void balance(struct node_st** root)
+static void balance(struct node_st **root)
 {
     if (NULL == *root)
         return;
@@ -221,10 +221,10 @@ static void balance(struct node_st** root)
  * @param    root
  * @param    tmpid
  */
-static void delete(struct node_st** root, int id)
+static void delete(struct node_st **root, int id)
 {
-    struct node_st** node = root;
-    struct node_st*  cur;
+    struct node_st **node = root;
+    struct node_st  *cur;
 
     while (*node != NULL && (*node)->data.id != id)
     {
@@ -279,16 +279,16 @@ static void travel(struct node_st *root)
  *
  * @param    root
  */
-static void travel(struct node_st* root)
+static void travel(struct node_st *root)
 {
     if (NULL == root)
         return;
 
     int             ret;
-    QUEUE*          qu;
-    struct node_st* cur;
+    QUEUE          *qu;
+    struct node_st *cur;
 
-    qu = queue_create(sizeof(struct node_st*));
+    qu = queue_create(sizeof(struct node_st *));
     if (NULL == qu)
         return;
 

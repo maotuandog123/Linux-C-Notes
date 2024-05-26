@@ -5,8 +5,8 @@
 
 int main( )
 {
-    sqlist* list  = NULL;
-    sqlist* list1 = NULL;
+    sqlist *list  = NULL;
+    sqlist *list1 = NULL;
 
     datatype arr[]  = {12, 23, 34, 45, 56};
     datatype arr1[] = {89, 90, 78, 67, 56, 43};
