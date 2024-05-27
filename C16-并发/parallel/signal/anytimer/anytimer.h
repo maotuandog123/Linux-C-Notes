@@ -1,3 +1,14 @@
+/********************************************************************
+ * @file     anytimer.h
+ * @brief
+ *           单一计时器实现任意数量定时器
+ * @author   lzy (lllzzzyyy@buaa.edu.cn)
+ * @url      https://lzyyyyyy.fun
+ *
+ * @date     2024-05-27
+ *
+ ********************************************************************/
+
 #ifndef __ANYTIMER__H__
 #define __ANYTIMER__H__
 
@@ -39,7 +50,6 @@ int at_canceljob(int id);
  *       == -EINVAL     失败，参数错误
  ********************************************************************/
 int at_waitjob(int id);
-
 
 int at_pausejob(int id);
 int at_resumejob(int id);

@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/time.h>
 #include <unistd.h>
 
 static void f1(void *p)
@@ -11,7 +12,7 @@ static void f1(void *p)
 
 static void f2(void *p)
 {
-    printf("f1():%s\n", (char *)p);
+    printf("f2():%s\n", (char *)p);
 }
 
 int main(int argc, char **argv)
@@ -27,7 +28,22 @@ int main(int argc, char **argv)
         exit(1);
     }
 
+    job1 = at_addjob(2, f2, "bbb");
+    if (job1 < 0)
+    {
+        fprintf(stderr, "at_addjob() failed!:%s\n", strerror(-job1));
+        exit(1);
+    }
+
+    job1 = at_addjob(7, f1, "ccc");
+    if (job1 < 0)
+    {
+        fprintf(stderr, "at_addjob() failed!:%s\n", strerror(-job1));
+        exit(1);
+    }
+
     puts("End!");
+
 
     while (1)
     {
