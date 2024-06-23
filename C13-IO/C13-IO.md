@@ -1,10 +1,11 @@
 # 目录
+
 - [目录](#目录)
 - [I/O操作](#io操作)
   - [标准IO](#标准io)
   - [文件IO/系统调用IO](#文件io系统调用io)
     - [文件描述符的概念](#文件描述符的概念)
-    - [文件IO操作相关函数：](#文件io操作相关函数)
+    - [文件IO操作相关函数](#文件io操作相关函数)
     - [例题：通过文件IO处理csv表格](#例题通过文件io处理csv表格)
     - [文件IO与标准IO的区别](#文件io与标准io的区别)
     - [IO的效率问题](#io的效率问题)
@@ -17,7 +18,6 @@
     - [同步](#同步)
     - [/dev/fd/目录](#devfd目录)
 
-
 # I/O操作
 
 输入输出是一切实现的基础。
@@ -27,8 +27,6 @@
 - 系统调用IO（文件IO）：`sysio`
 
 优先使用**标准IO**，兼容性更好，还有合并系统调用的优势。
-
-
 
 ## 标准IO
 
@@ -205,13 +203,9 @@ FILE *tmpfile(void);
 
 ```
 
-
-
 ## 文件IO/系统调用IO
 
 文件描述符（`fd`）是在文件IO中贯穿始终的类型。
-
-
 
 ### 文件描述符的概念
 
@@ -219,9 +213,7 @@ FILE *tmpfile(void);
 
 优先使用当前可用范围内最小的。
 
-
-
-### 文件IO操作相关函数：
+### 文件IO操作相关函数
 
 - `open`
 - `close`
@@ -305,8 +297,6 @@ off_t lseek(int fd, offt offset, int whence);
 
 ```
 
-
-
 ### 例题：通过文件IO处理csv表格
 
 ```csv
@@ -320,8 +310,6 @@ off_t lseek(int fd, offt offset, int whence);
 
 可以使用16进制查看工具
 
-
-
 ### 文件IO与标准IO的区别
 
 区别：响应速度&吞吐量
@@ -330,16 +318,10 @@ off_t lseek(int fd, offt offset, int whence);
 
 响应速度快就文件IO，吞吐量大就标准IO。
 
-
-
 > [!warning]
 > 二者不可混用
 
-
-
 转换方法：`fileno`, `fdopen`
-
-
 
 ### IO的效率问题
 
@@ -399,8 +381,6 @@ rm $dst
 
 ```
 
-
-
 #### 结果
 
 ```bash
@@ -423,8 +403,6 @@ Max BUFSIZE before segfault: 8388608
 ```
 
 在`ulimit -a`中，我的系统的`stack size`是`8192`，所以`BUFSIZE`不能超过`8192`，否则会段错误。与测试结果一致。
-
-
 
 ### 文件共享
 
@@ -465,8 +443,6 @@ p1->read -> p2->write
 
 ```
 
-
-
 ### 原子操作
 
 指不可分割的操作
@@ -474,8 +450,6 @@ p1->read -> p2->write
 作用：解决竞争和冲突
 
 如`tmpnam`函数，产生文件名和创建文件是两步，会有并发问题。
-
-
 
 ### 程序中的重定向：`dup`, `dup2`
 
@@ -488,8 +462,6 @@ p1->read -> p2->write
 int dup(int oldfd);
 int dup2(int oldfd, int newfd);
 ```
-
-
 
 ### 同步
 
@@ -507,8 +479,6 @@ int fcntl(int fd, int cmd, ... /* arg */);
 int ioctl(int fd, unsigned long request, ... /* arg */);
 
 ```
-
-
 
 ### /dev/fd/目录
 
